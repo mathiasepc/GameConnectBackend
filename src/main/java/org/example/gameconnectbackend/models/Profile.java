@@ -43,7 +43,7 @@ public class Profile {
     @OneToMany(mappedBy = "follower")
     private Set<Follower> following;
 
-    @MapsId @OneToOne
+    @MapsId @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private User user;
 
