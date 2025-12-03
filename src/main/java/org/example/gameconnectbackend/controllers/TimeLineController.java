@@ -1,6 +1,6 @@
 package org.example.gameconnectbackend.controllers;
 
-import org.example.gameconnectbackend.dtos.PostDTO;
+import org.example.gameconnectbackend.dtos.postDtos.PostDTO;
 import org.example.gameconnectbackend.interfaces.IPostService;
 import org.example.gameconnectbackend.interfaces.ITimelineService;
 import org.springframework.http.ResponseEntity;

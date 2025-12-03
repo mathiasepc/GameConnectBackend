@@ -1,6 +1,6 @@
 package org.example.gameconnectbackend.mappers;
 
-import org.example.gameconnectbackend.dtos.PostDTO;
+import org.example.gameconnectbackend.dtos.postDtos.PostDTO;
 import org.example.gameconnectbackend.models.Post;
 import org.mapstruct.Mapper;
 
