@@ -92,6 +92,18 @@
             <version>13.0</version>
             <scope>compile</scope>
         </dependency>
+        <!-- Allow us to use different annotations @NotNull -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <!-- Hibernate needs to know which validator to use -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>8.0.1.Final</version>
+        </dependency>
     </dependencies>
 
     <build>

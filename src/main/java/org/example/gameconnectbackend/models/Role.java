@@ -17,10 +17,10 @@ import java.util.List;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "roleId")
-    private Integer roleId;
+    private Integer id;
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "role")
+    @JoinColumn(name = "roleId")
     private List<User> users;
 }
