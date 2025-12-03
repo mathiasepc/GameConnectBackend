@@ -14,7 +14,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,10 +23,9 @@ public class Post {
     private Instant createdAt;
 
     // --- Relationships ---
-
     @ManyToOne
-    @JoinColumn(name = "profile_id")
-    private Profile profile;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private Set<Comment> comments;

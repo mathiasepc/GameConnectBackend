@@ -26,9 +26,6 @@ public class Profile {
     @Column(name = "img")
     private String img;
 
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
-    private List<Post> posts;
-
     @ManyToMany
     @JoinTable(
             name = "user_favourite_games",
@@ -46,6 +43,4 @@ public class Profile {
     @MapsId @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private User user;
-
-
 }
