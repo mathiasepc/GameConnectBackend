@@ -26,8 +26,8 @@ public class Post {
     // --- Relationships ---
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private Set<Comment> comments;

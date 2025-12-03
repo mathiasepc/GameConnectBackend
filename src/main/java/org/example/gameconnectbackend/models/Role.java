@@ -20,7 +20,6 @@ public class Role {
     private Integer id;
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "role")
-    @JoinColumn(name = "roleId")
+    @OneToMany(mappedBy = "role", cascade = CascadeType.MERGE)
     private List<User> users;
 }

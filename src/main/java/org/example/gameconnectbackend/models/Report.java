@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.gameconnectbackend.models.Post;
 
 import java.time.LocalDate;
 
@@ -20,8 +19,8 @@ public class Report {
     private Long id;
     private LocalDate dateReported;
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User reporter;
+    @JoinColumn(name = "profile_id")
+    private Profile reporter;
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;

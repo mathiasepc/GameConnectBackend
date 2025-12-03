@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.gameconnectbackend.models.Post;
-import org.example.gameconnectbackend.models.User;
 
 import java.time.Instant;
 
@@ -26,7 +24,7 @@ public class Comment {
     @JoinColumn(name = "post_id")
     private Post post;
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
 
 }

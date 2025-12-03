@@ -23,7 +23,7 @@ public class PostDTO {
     @NotNull
     private Instant createdAt;
     @NotNull
-    private User user;
+    private Profile profile;
     private Set<Comment> comments;
     private Set<Like> likes;
     private List<Report> reports;
