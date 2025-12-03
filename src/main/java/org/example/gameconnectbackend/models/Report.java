@@ -20,7 +20,7 @@ public class Report {
     private LocalDate dateReported;
     @ManyToOne
     @JoinColumn(name = "profile_id")
-    private Profile reporter;
+    private User reporter;
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
