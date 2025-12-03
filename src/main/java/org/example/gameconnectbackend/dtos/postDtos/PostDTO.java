@@ -1,6 +1,5 @@
-package org.example.gameconnectbackend.dtos;
+package org.example.gameconnectbackend.dtos.postDtos;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

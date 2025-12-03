@@ -1,9 +1,8 @@
 package org.example.gameconnectbackend.services;
 
-import org.example.gameconnectbackend.dtos.PostDTO;
+import org.example.gameconnectbackend.dtos.postDtos.PostDTO;
 import org.example.gameconnectbackend.interfaces.IPostService;
 import org.example.gameconnectbackend.mappers.PostMapper;
-import org.example.gameconnectbackend.models.Post;
 import org.example.gameconnectbackend.repositories.PostRepository;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package org.example.gameconnectbackend.interfaces;
 
-import org.example.gameconnectbackend.dtos.PostDTO;
+import org.example.gameconnectbackend.dtos.postDtos.PostDTO;
 import org.springframework.stereotype.Service;
 
 @Service
