@@ -1,11 +1,10 @@
 package org.example.gameconnectbackend.repositories;
 
-import org.example.gameconnectbackend.dtos.PostDTO;
+
 import org.example.gameconnectbackend.models.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @CrossOrigin
-public interface PostRepository extends JpaRepository<Post, Integer> {
+public interface TimelineRepository extends JpaRepository<Post,Integer> {
 }
