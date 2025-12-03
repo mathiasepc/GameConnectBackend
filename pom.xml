@@ -86,12 +86,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>13.0</version>
-            <scope>compile</scope>
-        </dependency>
+
         <!-- Allow us to use different annotations @NotNull -->
         <dependency>
             <groupId>jakarta.validation</groupId>
