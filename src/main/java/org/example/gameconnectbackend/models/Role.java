@@ -6,25 +6,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
+import java.util.List;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Comment {
+@Getter
+@Setter
+@Table(name = "Roles")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private Instant createdAt;
-    private String content;
-    @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Post post;
-    @ManyToOne
-    @JoinColumn(name = "profile_id")
-    private Profile profile;
-
+    private Integer id;
+    @Column(name = "name")
+    private String name;
+    @OneToMany(mappedBy = "role", cascade = CascadeType.MERGE)
+    private List<User> users;
 }

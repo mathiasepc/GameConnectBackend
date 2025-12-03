@@ -18,5 +18,5 @@ public class Game {
     private int id;
     private String name;
     @ManyToMany(mappedBy = "favouriteGames")
-    private Set<User> users;
+    private Set<Profile> profiles;
 }

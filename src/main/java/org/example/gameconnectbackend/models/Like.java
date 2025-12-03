@@ -5,10 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.gameconnectbackend.models.Post;
 
 import java.time.Instant;
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -21,8 +19,8 @@ public class Like {
     private Long id;
     private Instant createdAt;
     @ManyToOne()
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
