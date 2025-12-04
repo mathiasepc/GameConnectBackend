@@ -18,11 +18,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true, name="username")
+    @Column(name="username",unique = true, length = 50)
     private String username;
-    @Column(name="email")
+    @Column(name="email", unique = true, length = 50)
     private String email;
-    @Column(name="password")
+    @Column(name="password", length = 50)
     private String password;
 
     @ManyToOne

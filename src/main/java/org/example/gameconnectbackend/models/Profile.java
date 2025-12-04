@@ -21,9 +21,9 @@ public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "bio")
+    @Column(name = "bio", length = 300)
     private String bio;
-    @Column(name = "img")
+    @Column(name = "img", length = 300)
     private String img;
 
     @ManyToMany
