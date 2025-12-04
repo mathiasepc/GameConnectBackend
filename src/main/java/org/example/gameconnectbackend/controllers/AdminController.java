@@ -20,7 +20,7 @@ public class AdminController {
     }
 
     @CrossOrigin
-    @GetMapping("see-users/{page}/{users-per-page}")
+    @GetMapping("see-users/{page}/{usersPerPage}")
     public ResponseEntity<List<AdminUserDto>> getPageOfUsers(@PathVariable int page, @PathVariable int usersPerPage) {
         var response = adminService.getPageOfUsers(page, usersPerPage);
         return ResponseEntity.ok(response);

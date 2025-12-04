@@ -1,7 +1,8 @@
 package org.example.gameconnectbackend.dtos.userDTOs;
 
 import lombok.Data;
-import org.example.gameconnectbackend.models.enums.Role;
+import org.example.gameconnectbackend.models.Role;
+
 
 @Data
 public class AdminUserDto {
@@ -10,5 +11,5 @@ public class AdminUserDto {
     private String email;
     private String bio;
     private String img;
-    private Role role;
+    private AdminUserRoleDto role;
 }
