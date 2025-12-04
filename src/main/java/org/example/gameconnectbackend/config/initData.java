@@ -1,17 +1,14 @@
 package org.example.gameconnectbackend.config;
 
 import lombok.AllArgsConstructor;
-import org.example.gameconnectbackend.models.Profile;
-import org.example.gameconnectbackend.models.Role;
-import org.example.gameconnectbackend.models.Tag;
-import org.example.gameconnectbackend.models.User;
-import org.example.gameconnectbackend.repositories.RoleRepository;
-import org.example.gameconnectbackend.repositories.PostRepository;
-import org.example.gameconnectbackend.repositories.TagRepository;
-import org.example.gameconnectbackend.repositories.UserRepository;
+import org.example.gameconnectbackend.models.*;
+import org.example.gameconnectbackend.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @Component
@@ -20,6 +17,8 @@ public class initData implements CommandLineRunner {
     private final RoleRepository roleRepository;
     private final TagRepository tagRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ProfileRepository profileRepository;
+    private final FollowerRepository followerRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -32,14 +31,14 @@ public class initData implements CommandLineRunner {
         roleRepository.save(roleAdmin);
         //------------------------------
 
+        //Test User 1
         var profile = new Profile();
-        profile.setBio("When I am not giving out toys to all the good little girls and boys, I love to fuck shit up on ARC Raiders");
+        profile.setBio("When I am not giving out toys to all the good little girls and boys, I love to fuck shit up on ARC Raiders.");
         profile.setImg("https://images.pexels.com/photos/716658/pexels-photo-716658.jpeg");
 
         var testUser = new User();
         testUser.setEmail("email@email.com");
         testUser.setUsername("Santa Claus");
-        testUser.setUsername("username");
         testUser.setRole(roleUser);
         testUser.setProfile(profile);
         testUser.setPassword(passwordEncoder.encode("123456"));
@@ -60,6 +59,11 @@ public class initData implements CommandLineRunner {
         testUser1.setProfile(profile1);
         profile1.setUser(testUser1);
         userRepository.save(testUser1);
+
+        Follower relation = new Follower();
+        relation.setFollower(testUser.getProfile());
+        relation.setFollowing(testUser1.getProfile());
+        followerRepository.save(relation);
 
 
 
