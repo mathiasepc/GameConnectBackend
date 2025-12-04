@@ -23,7 +23,7 @@ public class User {
     @Column(name="email")
     private String email;
     @Column(name="password")
-    private String passwordHash;
+    private String password;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

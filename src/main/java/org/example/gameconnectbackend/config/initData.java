@@ -22,15 +22,21 @@ public class initData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        var role = new Role();
-        role.setName("USER");
-        roleRepository.save(role);
+        // Configure Roles
+        var roleUser = new Role();
+        roleUser.setName("USER");
+        roleRepository.save(roleUser);
+        var roleAdmin = new Role();
+        roleAdmin.setName("ADMIN");
+        roleRepository.save(roleAdmin);
+        //------------------------------
+
         var profile = new Profile();
 
         var testUser = new User();
         testUser.setEmail("email@email.com");
         testUser.setUsername("username");
-        testUser.setRole(role);
+        testUser.setRole(roleUser);
         testUser.setProfile(profile);
         profile.setUser(testUser);
         userRepository.save(testUser);
@@ -52,7 +58,7 @@ public class initData implements CommandLineRunner {
         var testUser2 = new User();
         testUser2.setEmail("email2@email.com");
         testUser2.setUsername("username2");
-        testUser2.setRole(role);
+        testUser2.setRole(roleUser);
         testUser2.setProfile(profile2);
         profile2.setUser(testUser2);
         userRepository.save(testUser2);
