@@ -3,13 +3,15 @@ package org.example.gameconnectbackend.services;
 import lombok.AllArgsConstructor;
 import org.example.gameconnectbackend.dtos.userDtos.RegisterUserRequest;
 import org.example.gameconnectbackend.dtos.userDtos.UserDto;
-import org.example.gameconnectbackend.exceptions.EmailExistsException;
-import org.example.gameconnectbackend.exceptions.UsernameExistsException;
+import org.example.gameconnectbackend.exceptions.SameCredentialsException;
 import org.example.gameconnectbackend.mappers.UserMapper;
 import org.example.gameconnectbackend.repositories.RoleRepository;
 import org.example.gameconnectbackend.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @AllArgsConstructor
 
@@ -21,15 +23,16 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final String roleUser = "USER";
 
+    public void checkUniqueCredentials(String username, String email){
+        Map<String,String> errors = new HashMap<>();
 
-    public void checkUsername(String username){
-        var exist = userRepository.existsByUsername(username);
-        if(exist) throw new UsernameExistsException();
-    }
+        var usernameExist = userRepository.existsByUsername(username);
+        if(usernameExist) errors.put("username", "Username already exist");
 
-    public void checkEmail(String email){
-        var exist = userRepository.existsByEmail(email);
-        if(exist) throw new EmailExistsException();
+        var emailExist = userRepository.existsByEmail(email);
+        if(emailExist) errors.put("email", "Email already exist");
+
+        if(!errors.isEmpty()) throw new SameCredentialsException(errors);
     }
 
     public UserDto registerUser(RegisterUserRequest request){
