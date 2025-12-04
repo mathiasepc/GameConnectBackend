@@ -37,11 +37,13 @@ public class SecurityConfig {
                 )
                 // Disable CSRF
                 .csrf(AbstractHttpConfigurer::disable)
-                // Here we configure our HttpSecurity
+                // ------------------------------------------
+                // !!! Here we configure our HttpSecurity !!!
                 .authorizeHttpRequests(c -> c
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
+                // -------------------------------------------
                 .cors(c -> c.configurationSource(request -> {
                     CorsConfiguration corsConfiguration = new CorsConfiguration();
                     corsConfiguration.setAllowCredentials(false);// allows taking authentication with credentials
