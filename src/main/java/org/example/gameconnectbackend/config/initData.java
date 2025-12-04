@@ -48,13 +48,15 @@ public class initData implements CommandLineRunner {
 
         //Test User 2
         var profile1 = new Profile();
+        profile1.setBio("That's what it's all about, isn't it? Games, games... games, games, games, games, games!");
+        profile1.setImg("https://icon2.cleanpng.com/20240303/utg/transparent-grinch-the-grinchs-angry-facial-expression-in-1710854420578.webp");
+
+
         var testUser1 = new User();
         testUser1.setEmail("email@email.com");
         testUser1.setUsername("The Grinch");
         testUser1.setRole(roleUser);
         testUser1.setProfile(profile1);
-        profile1.setBio("That's what it's all about, isn't it? Games, games... games, games, games, games, games!");
-        profile1.setImg("https://icon2.cleanpng.com/20240303/utg/transparent-grinch-the-grinchs-angry-facial-expression-in-1710854420578.webp");
         profile1.setUser(testUser1);
         userRepository.save(testUser1);
 
