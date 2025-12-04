@@ -66,7 +66,6 @@ public class initData implements CommandLineRunner {
         followerRepository.save(relation);
 
 
-
         var newTag = new Tag();
         var newTag2 = new Tag();
 
