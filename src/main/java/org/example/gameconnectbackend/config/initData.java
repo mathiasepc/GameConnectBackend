@@ -10,6 +10,7 @@ import org.example.gameconnectbackend.repositories.PostRepository;
 import org.example.gameconnectbackend.repositories.TagRepository;
 import org.example.gameconnectbackend.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
@@ -17,8 +18,8 @@ import org.springframework.stereotype.Component;
 public class initData implements CommandLineRunner {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final PostRepository postRepository;
     private final TagRepository tagRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -38,6 +39,7 @@ public class initData implements CommandLineRunner {
         testUser.setUsername("username");
         testUser.setRole(roleUser);
         testUser.setProfile(profile);
+        testUser.setPassword(passwordEncoder.encode("123456"));
         profile.setUser(testUser);
         userRepository.save(testUser);
 
@@ -60,6 +62,7 @@ public class initData implements CommandLineRunner {
         testUser2.setUsername("username2");
         testUser2.setRole(roleUser);
         testUser2.setProfile(profile2);
+        testUser2.setPassword(passwordEncoder.encode("123456"));
         profile2.setUser(testUser2);
         userRepository.save(testUser2);
         userRepository.delete(testUser2);
