@@ -19,6 +19,11 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
 
+    @GetMapping()
+    public ResponseEntity<?> getAllUsers(){
+        return null;
+    }
+
 
     @PostMapping
     public ResponseEntity<?> registerUser(

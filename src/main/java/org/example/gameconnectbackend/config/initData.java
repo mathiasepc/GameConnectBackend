@@ -53,7 +53,7 @@ public class initData implements CommandLineRunner {
 
 
         var testUser1 = new User();
-        testUser1.setEmail("email@email.com");
+        testUser1.setEmail("email@email2.com");
         testUser1.setUsername("The Grinch");
         testUser1.setRole(roleUser);
         testUser1.setProfile(profile1);
