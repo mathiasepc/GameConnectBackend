@@ -12,11 +12,10 @@ import java.util.Set;
 
 @Entity
 public class Game {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     @ManyToMany(mappedBy = "favouriteGames")
-    private Set<User> users;
+    private Set<Profile> profiles;
 }

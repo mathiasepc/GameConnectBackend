@@ -14,7 +14,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +23,6 @@ public class Post {
     private Instant createdAt;
 
     // --- Relationships ---
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
