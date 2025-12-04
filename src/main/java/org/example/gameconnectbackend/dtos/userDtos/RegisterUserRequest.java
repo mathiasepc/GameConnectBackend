@@ -8,9 +8,6 @@ import lombok.Data;
 
 @Data
 public class RegisterUserRequest {
-    @NotBlank(message = "Image cannot be empty")
-    @Size(max = 300, message = "Image must less than 300 characters")
-    private String img;
     @NotNull(message = "Username cannot be empty")
     @Size(max = 50, message = "Username must less than 50 characters")
     private String username;
