@@ -1,11 +1,12 @@
 package org.example.gameconnectbackend.dtos.postDtos;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import org.example.gameconnectbackend.models.*;
-import org.jetbrains.annotations.NotNull;
+
 
 import java.time.Instant;
 import java.util.List;
@@ -23,7 +24,7 @@ public class PostDTO {
     @NotNull
     private Instant createdAt;
     @NotNull
-    private User user;
+    private Profile profile;
     private Set<Comment> comments;
     private Set<Like> likes;
     private List<Report> reports;
