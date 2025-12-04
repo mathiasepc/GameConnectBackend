@@ -34,7 +34,7 @@ public class Profile {
     )
     private Set<Game> favouriteGames;
 
-    @OneToMany(mappedBy = "follower")
+    @OneToMany(mappedBy = "following")
     private Set<Follower> followers;
 
     @OneToMany(mappedBy = "follower")

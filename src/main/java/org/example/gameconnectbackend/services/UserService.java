@@ -1,10 +1,13 @@
 package org.example.gameconnectbackend.services;
 
 import lombok.AllArgsConstructor;
+import org.example.gameconnectbackend.dtos.postDtos.ProfileDTO;
 import org.example.gameconnectbackend.dtos.userDtos.RegisterUserRequest;
 import org.example.gameconnectbackend.dtos.userDtos.UserDto;
 import org.example.gameconnectbackend.exceptions.SameCredentialsException;
 import org.example.gameconnectbackend.mappers.UserMapper;
+import org.example.gameconnectbackend.models.Profile;
+import org.example.gameconnectbackend.models.User;
 import org.example.gameconnectbackend.repositories.RoleRepository;
 import org.example.gameconnectbackend.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,5 +48,23 @@ public class UserService {
 
         return userMapper.toDto(user);
     }
+
+    public ProfileDTO getProfileDTO(long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if(user == null) return null;
+
+        Profile profile = user.getProfile();
+
+        return new ProfileDTO(
+                user.getUsername(),
+                user.getPosts(),
+                profile.getBio(),
+                profile.getImg(),
+                profile.getFollowers(),
+                profile.getFollowing()
+        );
+    }
+
+
 
 }
