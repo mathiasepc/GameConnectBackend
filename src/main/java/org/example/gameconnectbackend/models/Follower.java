@@ -18,4 +18,5 @@ public class Follower {
     @ManyToOne
     @JoinColumn(name = "following_id")
     private Profile following;
+
 }

@@ -18,12 +18,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true, name="username")
+    @Column(name="username",unique = true, length = 50)
     private String username;
-    @Column(name="email")
+    @Column(name="email", unique = true, length = 50)
     private String email;
-    @Column(name="password")
-    private String passwordHash;
+    @Column(name="password", length = 60)
+    private String password;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
