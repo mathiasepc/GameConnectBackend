@@ -32,17 +32,6 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
-    @GetMapping("/{id}/profile")
-    public ResponseEntity<ProfileDTO> getUserById(@PathVariable Long id) {
-        ProfileDTO dto = userService.getProfileDTO(id);
-
-        if(dto == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(dto);
-    }
-
     @ExceptionHandler(SameCredentialsException.class)
     public ResponseEntity<Map<String,String>> handleEmailExistsException(SameCredentialsException ex){
         Map<String,String> errors = ex.getCredentialsExist();
