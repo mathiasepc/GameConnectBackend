@@ -7,7 +7,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -36,14 +39,43 @@ public class initData implements CommandLineRunner {
         profile.setBio("When I am not giving out toys to all the good little girls and boys, I love to fuck shit up on ARC Raiders.");
         profile.setImg("https://images.pexels.com/photos/716658/pexels-photo-716658.jpeg");
 
+        List<Post> posts = new ArrayList<>();
+        var post1 = new Post();
+        post1.setContent("Catch me live!");
+        post1.setCreatedAt(Instant.now());
+        Media media = new Media();
+        media.setPath("https://cdn.mos.cms.futurecdn.net/X4ksjqW5jFwk9fqBQWEvrc-840-80.jpg.webp");
+        post1.setMedia(media);
+        var post2 = new Post();
+        post2.setContent("WHO ATE ALL MY COOKIES?");
+        post2.setCreatedAt(Instant.now());
+        var post3 = new Post();
+        post3.setContent("WHO WANTS TO SHOOT SOME ROBOTS?????!?!??!?!");
+        post3.setCreatedAt(Instant.now());
+        var post4 = new Post();
+        post4.setContent("Last arc marathon before XMAS! WHO WANTS SOME?");
+        post4.setCreatedAt(Instant.now());
+
+        posts.add(post1);
+        posts.add(post2);
+        posts.add(post3);
+        posts.add(post4);
+
         var testUser = new User();
         testUser.setEmail("email@email.com");
         testUser.setUsername("Santa Claus");
         testUser.setRole(roleUser);
         testUser.setProfile(profile);
+        post1.setUser(testUser);
+        post2.setUser(testUser);
+        post3.setUser(testUser);
+        post4.setUser(testUser);
         testUser.setPassword(passwordEncoder.encode("123456"));
         profile.setUser(testUser);
+        testUser.setPosts(posts);
         userRepository.save(testUser);
+
+
 
         //Test User 2
         var profile1 = new Profile();
@@ -64,6 +96,9 @@ public class initData implements CommandLineRunner {
         relation.setFollower(testUser.getProfile());
         relation.setFollowing(testUser1.getProfile());
         followerRepository.save(relation);
+
+
+
 
 
         var newTag = new Tag();

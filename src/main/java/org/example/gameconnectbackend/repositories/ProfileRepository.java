@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.Optional;
 
 @CrossOrigin
-public interface ProfileRepository extends JpaRepository<Profile,Integer> {
+public interface ProfileRepository extends JpaRepository<Profile,Long> {
 }
