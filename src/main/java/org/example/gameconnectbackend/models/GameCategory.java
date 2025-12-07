@@ -8,7 +8,6 @@ import java.util.List;
 @Table(name = "game_categories")
 public class GameCategory {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name= "name")
     private String name;
