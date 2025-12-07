@@ -2,6 +2,7 @@ package org.example.gameconnectbackend.services;
 
 import org.example.gameconnectbackend.dtos.postDtos.PostSummaryDTO;
 import org.example.gameconnectbackend.dtos.postDtos.ProfileDTO;
+import org.example.gameconnectbackend.mappers.PostMapper;
 import org.example.gameconnectbackend.models.Profile;
 import org.example.gameconnectbackend.models.User;
 import org.example.gameconnectbackend.repositories.UserRepository;
@@ -13,9 +14,11 @@ import java.util.List;
 public class ProfileService {
 
     private final UserRepository userRepository;
+    private final PostMapper postMapper;
 
-    public ProfileService(UserRepository userRepository) {
+    public ProfileService(UserRepository userRepository, PostMapper postMapper) {
         this.userRepository = userRepository;
+        this.postMapper = postMapper;
     }
 
     public ProfileDTO getProfileDTO(long id) {
@@ -26,12 +29,7 @@ public class ProfileService {
 
         List<PostSummaryDTO> posts = user.getPosts()
                 .stream()
-                .map(p -> new PostSummaryDTO(
-                        p.getId(),
-                        p.getContent(),
-                        p.getCreatedAt(),
-                        p.getMedia()
-                ))
+                .map(postMapper::toPostSummaryDTO)  // <--- use mapper here
                 .toList();
 
         return new ProfileDTO(

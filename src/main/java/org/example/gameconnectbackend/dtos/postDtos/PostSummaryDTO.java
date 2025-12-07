@@ -15,5 +15,8 @@ public class PostSummaryDTO {
     private String content;
     private Instant createdAt;
     private Media media;
+    private String username;
+    private String img;
+
 }
 
