@@ -1,4 +1,4 @@
-package org.example.gameconnectbackend.igdb;
+package org.example.gameconnectbackend.services.igdb.helper;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package org.example.gameconnectbackend.igdb;
+package org.example.gameconnectbackend.services.igdb.helper;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

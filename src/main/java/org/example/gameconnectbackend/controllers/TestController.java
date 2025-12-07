@@ -1,6 +1,6 @@
 package org.example.gameconnectbackend.controllers;
 
-import org.example.gameconnectbackend.igdb.IgdbClient;
+import org.example.gameconnectbackend.services.igdb.IgdbClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

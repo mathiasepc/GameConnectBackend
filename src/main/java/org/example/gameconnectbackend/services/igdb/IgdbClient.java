@@ -1,6 +1,6 @@
-package org.example.gameconnectbackend.igdb;
+package org.example.gameconnectbackend.services.igdb;
 
-import lombok.AllArgsConstructor;
+import org.example.gameconnectbackend.services.igdb.helper.ITokenProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import tools.jackson.databind.ObjectMapper;
