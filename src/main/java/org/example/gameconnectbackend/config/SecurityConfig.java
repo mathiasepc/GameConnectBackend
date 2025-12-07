@@ -31,6 +31,7 @@ public class SecurityConfig {
         return HttpClient.newBuilder()
                 // Sets a timeout for the request.
                 .connectTimeout(Duration.ofSeconds(50))
+                .version(HttpClient.Version.HTTP_2)
                 .build();
     }
 

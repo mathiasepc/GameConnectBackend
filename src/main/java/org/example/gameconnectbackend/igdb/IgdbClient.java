@@ -1,7 +1,7 @@
-package org.example.gameconnectbackend.services.igdb;
+package org.example.gameconnectbackend.igdb;
 
 import lombok.AllArgsConstructor;
-import org.example.gameconnectbackend.interfaces.IIgdbClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import tools.jackson.databind.ObjectMapper;
 
@@ -13,41 +13,24 @@ import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.List;
 
-@AllArgsConstructor
 @Component
-public class IgdbClient implements IIgdbClient {
+public class IgdbClient {
     private final HttpClient httpClient;
     private final ObjectMapper mapper;
-    private final IgdbCredentials properties;
+    private final ITokenProvider tokenProvider;
 
-    // Collects our Bear token.
-    public TokenResponse fetchAppToken() {
-        // Reqiured in our http body to retrieve the token
-        String form = "client_id=" + properties.getClientId()
-                + "&client_secret=" + properties.getClientSecret()
-                + "&grant_type=client_credentials";
+    @Value("${igdb.client-id}")
+    private String clientId;
 
-        // Set up the request.
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://id.twitch.tv/oauth2/token"))
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .POST(HttpRequest.BodyPublishers.ofString(form))
-                .build();
-
-        try {
-            // Get the response
-            HttpResponse<String> response =
-                    httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-            // Map from Json to TokenResponse.
-            return mapper.readValue(response.body(), TokenResponse.class);
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException("Error while getting token", e);
-        }
+    public IgdbClient(HttpClient httpClient, ObjectMapper mapper, ITokenProvider tokenProvider) {
+        this.httpClient = httpClient;
+        this.mapper = mapper;
+        this.tokenProvider = tokenProvider;
     }
 
     // Collect games with Categories
-    public List<IgdbGame> postToGamesEndpoint(TokenResponse token) {
+    public List<IgdbGame> postToGamesEndpoint() {
+        String token = tokenProvider.getAccessToken();
         // The data we want to collect.
         // Limit is 100, and we can request 8 times pr. sec.
         String form =
@@ -55,12 +38,11 @@ public class IgdbClient implements IIgdbClient {
                         "sort total_rating desc;" +
                         "where total_rating != null;" +
                         "limit 100;";
-
         // Setup our http request
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.igdb.com/v4/games"))
-                .header("Client-ID", properties.getClientId())
-                .header("Authorization", token.getToken_type() + " " + token.getAccess_token())
+                .header("Client-ID", clientId)
+                .header("Authorization", "bearer " + token)
                 .header("Accept", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(form))
                 .build();
