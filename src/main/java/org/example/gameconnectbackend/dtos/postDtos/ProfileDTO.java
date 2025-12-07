@@ -15,10 +15,9 @@ import java.util.Set;
 @NoArgsConstructor
 public class ProfileDTO {
     private String username;
-    private List<Post> posts;
+    private List<PostSummaryDTO> posts;
     private String bio;
     private String img;
-    private Set<Follower> followers;
-    private Set<Follower> followings;
-
+    private int followers;
+    private int followings;
 }

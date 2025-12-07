@@ -1,6 +1,7 @@
 package org.example.gameconnectbackend.services;
 
 import lombok.AllArgsConstructor;
+import org.example.gameconnectbackend.dtos.postDtos.PostSummaryDTO;
 import org.example.gameconnectbackend.dtos.postDtos.ProfileDTO;
 import org.example.gameconnectbackend.dtos.userDtos.RegisterUserRequest;
 import org.example.gameconnectbackend.dtos.userDtos.UserDto;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -48,23 +50,4 @@ public class UserService {
 
         return userMapper.toDto(user);
     }
-
-    public ProfileDTO getProfileDTO(long id) {
-        User user = userRepository.findById(id).orElse(null);
-        if(user == null) return null;
-
-        Profile profile = user.getProfile();
-
-        return new ProfileDTO(
-                user.getUsername(),
-                user.getPosts(),
-                profile.getBio(),
-                profile.getImg(),
-                profile.getFollowers(),
-                profile.getFollowing()
-        );
-    }
-
-
-
 }
