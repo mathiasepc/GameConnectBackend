@@ -11,6 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 public class IgdbGame {
+    @JsonProperty("id")
+    private Long id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("genres")

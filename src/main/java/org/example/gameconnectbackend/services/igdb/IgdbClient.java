@@ -10,7 +10,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -72,8 +71,8 @@ public class IgdbClient implements IIgdbClient {
                     httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
             // Deserializes JSON to IgdbGame[]
-            // new ArrayList<> = wraps it in a mutable List.
-            return new ArrayList<>(Arrays.asList(mapper.readValue(response.body(), IgdbGame[].class)));
+            // Convert from [] -> ArrayList<IgdbGame>
+            return Arrays.asList(mapper.readValue(response.body(), IgdbGame[].class));
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException("Error calling IGDB games endpoint", e);
         }

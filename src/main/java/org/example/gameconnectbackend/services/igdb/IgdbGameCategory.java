@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class IgdbGameCategory {
+    @JsonProperty("id")
+    private Long id;
     @JsonProperty("name")
     private String name;
 }
