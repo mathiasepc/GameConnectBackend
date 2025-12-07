@@ -18,9 +18,7 @@ public class GameController {
 
     @GetMapping
     public ResponseEntity<?> checkHttpStatus() {
-            HttpResponse response =  igdbService.getJwtToken();
-
-            var test = igdbService.getGames(response);
+            igdbService.getGames();
 
             return ResponseEntity.ok("");
 
