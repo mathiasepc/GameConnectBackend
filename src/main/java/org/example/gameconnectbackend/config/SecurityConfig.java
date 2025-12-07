@@ -31,6 +31,15 @@ public class SecurityConfig {
     }
 
     @Bean
+    public HttpClient igdbHttpClient() {
+        return HttpClient.newBuilder()
+                // Sets a timeout for the request.
+                .connectTimeout(Duration.ofSeconds(50))
+                .build();
+    }
+
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.sessionManagement(c ->
                         // Stateless session we're using token based authentication
