@@ -1,6 +1,7 @@
 package org.example.gameconnectbackend.services;
 
 import org.example.gameconnectbackend.dtos.postDtos.PostDTO;
+import org.example.gameconnectbackend.dtos.postDtos.PostSummaryDTO;
 import org.example.gameconnectbackend.exceptions.ProfileNotFoundException;
 import org.example.gameconnectbackend.exceptions.UserNotFoundException;
 import org.example.gameconnectbackend.interfaces.IPostService;
@@ -14,8 +15,11 @@ import org.example.gameconnectbackend.repositories.TagRepository;
 import org.example.gameconnectbackend.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService implements IPostService {
@@ -63,8 +67,13 @@ public class PostService implements IPostService {
         postRepository.save(post);
         postDTO.setId(saved.getId());
         return postDTO;
+    }
 
-
-
+    @Override
+    public List<PostSummaryDTO> getAllPosts() {
+        return postRepository.findAll().stream()
+                .map(postMapper::toPostSummaryDTO)
+                .sorted(Comparator.comparing(PostSummaryDTO::getCreatedAt).reversed())
+                .collect(Collectors.toList());
     }
 }
