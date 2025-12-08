@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.gameconnectbackend.models.Follower;
 import org.example.gameconnectbackend.models.Post;
+import org.example.gameconnectbackend.models.Profile;
 
 import java.util.List;
 import java.util.Set;
@@ -16,8 +17,10 @@ import java.util.Set;
 public class ProfileDTO {
     private String username;
     private List<PostSummaryDTO> posts;
+    private Long id;
     private String bio;
     private String img;
     private int followers;
     private int followings;
+    boolean followed;
 }
