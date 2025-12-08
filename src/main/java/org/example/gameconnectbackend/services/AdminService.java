@@ -36,4 +36,13 @@ public class AdminService {
 
         return userDtos;
     }
+
+    public boolean deleteUser(Long userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            userRepository.delete(user);
+            return true;
+        }
+        return false;
+    }
 }

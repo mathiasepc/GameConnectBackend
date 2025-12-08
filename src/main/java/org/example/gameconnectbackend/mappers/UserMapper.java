@@ -7,7 +7,7 @@ import org.example.gameconnectbackend.models.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+
 // we uses RoleMapper because we need to map the role from the registerUserRequest to the user
 @Mapper(componentModel = "spring", uses = RoleMapper.class)
 public interface UserMapper {

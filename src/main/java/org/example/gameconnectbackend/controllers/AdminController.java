@@ -25,4 +25,12 @@ public class AdminController {
         var response = adminService.getPageOfUsers(page, usersPerPage);
         return ResponseEntity.ok(response);
     }
+
+    @CrossOrigin
+    @DeleteMapping("delete-user")
+    public ResponseEntity<Boolean> deleteUser(@RequestParam long id) {
+        System.out.println("hello from delete user");
+       var response = adminService.deleteUser(id);
+       return ResponseEntity.ok(response);
+    }
 }
