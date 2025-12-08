@@ -23,8 +23,6 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
-    @ManyToOne
-    @JoinColumn(name = "profile_id")
-    private Profile profile;
+    private String username;
 
 }
