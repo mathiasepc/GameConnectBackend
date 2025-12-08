@@ -7,21 +7,16 @@ import org.example.gameconnectbackend.exceptions.SameCredentialsException;
 import org.example.gameconnectbackend.mappers.UserMapper;
 import org.example.gameconnectbackend.repositories.RoleRepository;
 import org.example.gameconnectbackend.repositories.UserRepository;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 @AllArgsConstructor
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -44,22 +39,10 @@ public class UserService implements UserDetailsService {
         var user = userMapper.toEntity(request);
         var role = roleRepository.findByName(roleUser);
         user.setRole(role);
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userRepository.save(user);
 
         return userMapper.toDto(user);
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        var user = userRepository.findByEmail(email).orElseThrow(
-                () -> new UsernameNotFoundException("User not found with email: " + email));
-
-        return new User(
-                user.getEmail(),
-                user.getPassword(),
-                Collections.emptyList()
-        );
     }
 }
