@@ -2,8 +2,8 @@ package org.example.gameconnectbackend.controllers;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.example.gameconnectbackend.dtos.userDtos.JwtResponse;
-import org.example.gameconnectbackend.dtos.userDtos.LoginRequest;
+import org.example.gameconnectbackend.dtos.authDtos.JwtResponse;
+import org.example.gameconnectbackend.dtos.authDtos.LoginRequest;
 import org.example.gameconnectbackend.dtos.userDtos.UserDto;
 import org.example.gameconnectbackend.mappers.UserMapper;
 import org.example.gameconnectbackend.repositories.UserRepository;
@@ -33,14 +33,16 @@ public class AuthController {
                 // UsernamePasswordAuthenticationToken have 2 constructors.
                 // We set the first constructor of UsernamePasswordAuthenticationToken
                 // - the first constructor to pass email. We can fetch that later.
-                // Object principal: set to the email of the user or what ever object we use to identify the user
+                // Object principal: set to the information of the user you choose.
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
                 )
         );
 
-        var token = jwtService.generateJwtToken(request.getEmail());
+        var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+
+        var token = jwtService.generateJwtToken(user);
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
@@ -53,11 +55,11 @@ public class AuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserDto> logout(){
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        var email = (String) authentication.getPrincipal();
+    public ResponseEntity<UserDto> getAuthenticatedUser(){
+        var authenticated = SecurityContextHolder.getContext().getAuthentication();
+        var id = (Long) authenticated.getPrincipal();
 
-        var user = userRepository.findByEmail(email).orElse(null);
+        var user = userRepository.findById(id).orElse(null);
         if(user == null){
             return ResponseEntity.notFound().build();
         }

@@ -38,9 +38,9 @@ public class UserService {
     public UserDto registerUser(RegisterUserRequest request){
         var user = userMapper.toEntity(request);
         var role = roleRepository.findByName(roleUser);
+
         user.setRole(role);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         userRepository.save(user);
 
         return userMapper.toDto(user);

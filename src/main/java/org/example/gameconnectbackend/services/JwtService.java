@@ -4,10 +4,15 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.example.gameconnectbackend.models.Role;
+import org.example.gameconnectbackend.models.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+
+// This class is responsible for generating, validating JWT tokens
+// and get information from the token payload
 
 @Service
 public class JwtService {
@@ -21,10 +26,12 @@ public class JwtService {
     // https://www.jwt.io/
 
     // We generate our token here
-    public String generateJwtToken(String email) {
+    public String generateJwtToken(User user) {
         return Jwts.builder()
-                // is  "sub": "1234567890" in a jwt token
-                .subject(email)
+                // subject "sub": "" in a jwt token
+                // "sub" is the subject of the token. what token does this belong to.
+                .subject(user.getId().toString())
+                .claim("role", user.getRole().getName())
                 .issuedAt(new Date())
                 // We multiply by 1000 because the expiration time is in seconds
                 .expiration(new Date(System.currentTimeMillis() + 1000 * EXPIRATION_TIME))
@@ -60,8 +67,12 @@ public class JwtService {
                 .getPayload();
     }
 
-    public String getEmailFromToken(String token){
-        return getClaims(token).getSubject();
+    public Long getUserIdFromToken(String token){
+        return  Long.valueOf(getClaims(token).getSubject());
 
+    }
+
+    public String getRoleFromToken(String token){
+        return getClaims(token).get("role", String.class);
     }
 }
