@@ -1,4 +1,4 @@
-package org.example.gameconnectbackend.dtos.userDtos;
+package org.example.gameconnectbackend.dtos.authDtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -105,13 +105,17 @@ public class initData implements CommandLineRunner {
         profile1.setUser(testUser1);
         userRepository.save(testUser1);
 
+        var testUser2 = new User();
+        testUser2.setEmail("email@email3.com");
+        testUser2.setUsername("The Grinch2");
+        testUser2.setPassword(passwordEncoder.encode("123456"));
+        testUser2.setRole(roleAdmin);
+        userRepository.save(testUser2);
+
         Follower relation = new Follower();
         relation.setFollower(testUser.getProfile());
         relation.setFollowing(testUser1.getProfile());
         followerRepository.save(relation);
-
-
-
 
 
         var newTag = new Tag();
@@ -127,16 +131,16 @@ public class initData implements CommandLineRunner {
 
 
         // !!! Only for testing purposes when creating our database !!!
-        var profile2 = new Profile();
-        var testUser2 = new User();
-        testUser2.setEmail("email2@email.com");
-        testUser2.setUsername("username2");
-        testUser2.setRole(roleUser);
-        testUser2.setProfile(profile2);
-        testUser2.setPassword(passwordEncoder.encode("123456"));
-        profile2.setUser(testUser2);
-        userRepository.save(testUser2);
-        userRepository.delete(testUser2);
+        var profile3 = new Profile();
+        var testUser3 = new User();
+        testUser3.setEmail("email2@email.com");
+        testUser3.setUsername("username2");
+        testUser3.setRole(roleUser);
+        testUser3.setProfile(profile3);
+        testUser3.setPassword(passwordEncoder.encode("123456"));
+        profile3.setUser(testUser3);
+        userRepository.save(testUser3);
+        userRepository.delete(testUser3);
         // -----------------------------------------------------------
 
 
