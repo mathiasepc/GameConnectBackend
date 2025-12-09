@@ -31,7 +31,4 @@ public class ProfileController {
 
         return ResponseEntity.ok(dto);
     }
-
-//    @GetMapping("/{id}/followers")
-//    public List<Follower> getFollowers(@PathVariable Long id) {}
 }

@@ -1,7 +1,7 @@
 package org.example.gameconnectbackend.mappers;
 
 import org.example.gameconnectbackend.dtos.postDtos.PostDTO;
-import org.example.gameconnectbackend.dtos.postDtos.PostSummaryDTO;
+import org.example.gameconnectbackend.dtos.postDtos.TimelinePostDTO;
 import org.example.gameconnectbackend.models.Post;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,6 +15,6 @@ public interface PostMapper {
 
     @Mapping(source = "user.username", target = "username")
     @Mapping(source = "user.profile.img", target = "img")
-    PostSummaryDTO toPostSummaryDTO(Post post);
+    TimelinePostDTO toPostSummaryDTO(Post post);
 
 }

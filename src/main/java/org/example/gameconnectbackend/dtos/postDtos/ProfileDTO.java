@@ -4,19 +4,15 @@ package org.example.gameconnectbackend.dtos.postDtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.gameconnectbackend.models.Follower;
-import org.example.gameconnectbackend.models.Post;
-import org.example.gameconnectbackend.models.Profile;
 
 import java.util.List;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProfileDTO {
     private String username;
-    private List<PostSummaryDTO> posts;
+    private List<TimelinePostDTO> posts;
     private Long id;
     private String bio;
     private String img;
