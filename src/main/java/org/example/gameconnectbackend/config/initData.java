@@ -91,17 +91,6 @@ public class initData implements CommandLineRunner {
         testUser.setPosts(posts);
         userRepository.save(testUser);
 
-        var testUser12 = new User();
-        testUser12.setEmail("missSanta@email.com");
-        testUser12.setUsername("Miss Santa Claus");
-        testUser12.setRole(roleUser);
-        testUser12.setPassword(passwordEncoder.encode("123456"));
-        var profile12 = new Profile();
-        testUser12.setProfile(profile12);
-        profile12.setUser( testUser12);
-        profile12.setImg("https://thehill.com/wp-content/uploads/sites/2/2021/12/ca_mrsclaus_122321_getty.jpg");
-        userRepository.save(testUser12);
-
 
         //Test User 2
         var profile1 = new Profile();
@@ -134,6 +123,17 @@ public class initData implements CommandLineRunner {
         testUser2.setPassword(passwordEncoder.encode("123456"));
         testUser2.setRole(roleAdmin);
         userRepository.save(testUser2);
+
+        var testUser12 = new User();
+        testUser12.setEmail("missSanta@email.com");
+        testUser12.setUsername("Miss Santa Claus");
+        testUser12.setRole(roleUser);
+        testUser12.setPassword(passwordEncoder.encode("123456"));
+        var profile12 = new Profile();
+        testUser12.setProfile(profile12);
+        profile12.setUser( testUser12);
+        profile12.setImg("https://thehill.com/wp-content/uploads/sites/2/2021/12/ca_mrsclaus_122321_getty.jpg");
+        userRepository.save(testUser12);
 
         // !!! Only for testing purposes when creating our database !!!
         var profile3 = new Profile();
