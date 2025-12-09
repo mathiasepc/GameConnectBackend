@@ -21,6 +21,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final String roleUser = "USER";
+    private final PasswordEncoder passwordEncoder;
 
     public void checkUniqueCredentials(String username, String email){
         Map<String,String> errors = new HashMap<>();
