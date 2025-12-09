@@ -95,7 +95,6 @@ public class initData implements CommandLineRunner {
         testUser12.setEmail("missSanta@email.com");
         testUser12.setUsername("Miss Santa Claus");
         testUser12.setRole(roleUser);
-
         testUser12.setPassword(passwordEncoder.encode("123456"));
         var profile12 = new Profile();
         testUser12.setProfile(profile12);
@@ -135,24 +134,6 @@ public class initData implements CommandLineRunner {
         testUser2.setPassword(passwordEncoder.encode("123456"));
         testUser2.setRole(roleAdmin);
         userRepository.save(testUser2);
-
-        Follower relation = new Follower();
-        relation.setFollower(testUser.getProfile());
-        relation.setFollowing(testUser1.getProfile());
-        followerRepository.save(relation);
-
-
-        var newTag = new Tag();
-        var newTag2 = new Tag();
-
-
-        newTag.setName("RPG");
-
-        newTag2.setName("FPS");
-
-        tagRepository.save(newTag);
-        tagRepository.save(newTag2);
-
 
         // !!! Only for testing purposes when creating our database !!!
         var profile3 = new Profile();
