@@ -34,6 +34,7 @@ public class SearchService {
 
         for (User user: foundUsers){
             Profile profile = user.getProfile();
+            if (profile == null) continue;
             SearchResultDTO searchResultDTO = new SearchResultDTO();
             searchResultDTO.setProfileId(profile.getId());
             searchResultDTO.setUserId(user.getId());
