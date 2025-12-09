@@ -1,7 +1,7 @@
 package org.example.gameconnectbackend.controllers;
 
 import org.example.gameconnectbackend.dtos.postDtos.PostDTO;
-import org.example.gameconnectbackend.dtos.postDtos.PostSummaryDTO;
+import org.example.gameconnectbackend.dtos.postDtos.TimelinePostDTO;
 import org.example.gameconnectbackend.interfaces.IPostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +25,8 @@ public class TimeLineController {
         return ResponseEntity.ok( response);
     }
 
-    @GetMapping("/posts")
-    public List<PostSummaryDTO> getPosts() {
-        return postService.getAllPosts();
+    @GetMapping("/posts/{userId}")
+    public List<TimelinePostDTO> getTimeline(@PathVariable Long userId) {
+        return postService.getTimelinePosts(userId);
     }
 }

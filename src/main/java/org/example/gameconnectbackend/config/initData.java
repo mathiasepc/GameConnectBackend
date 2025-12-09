@@ -22,7 +22,7 @@ public class initData implements CommandLineRunner {
     private final TagRepository tagRepository;
     private final PasswordEncoder passwordEncoder;
     private final ProfileRepository profileRepository;
-    private final FollowerRepository followerRepository;
+    private final FollowRepository followRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -35,6 +35,17 @@ public class initData implements CommandLineRunner {
         roleRepository.save(roleAdmin);
         //------------------------------
 
+        var newTag = new Tag();
+        var newTag2 = new Tag();
+
+
+        newTag.setName("RPG");
+
+        newTag2.setName("FPS");
+
+        tagRepository.save(newTag);
+        tagRepository.save(newTag2);
+
         //Test User 1
         var profile = new Profile();
         profile.setBio("When I am not giving out toys to all the good little girls and boys, I love to fuck shit up on ARC Raiders.");
@@ -44,6 +55,10 @@ public class initData implements CommandLineRunner {
         var post1 = new Post();
         post1.setContent("Catch me live!");
         post1.setCreatedAt(Instant.now().minus(3, ChronoUnit.HOURS));
+        Set<Tag> tags = new HashSet<>();
+        tags.add(newTag);
+        tags.add(newTag2);
+        post1.setTags(tags);
         Media media = new Media();
         media.setPath("https://cdn.mos.cms.futurecdn.net/X4ksjqW5jFwk9fqBQWEvrc-840-80.jpg.webp");
         post1.setMedia(media);
@@ -80,7 +95,6 @@ public class initData implements CommandLineRunner {
         testUser12.setEmail("missSanta@email.com");
         testUser12.setUsername("Miss Santa Claus");
         testUser12.setRole(roleUser);
-
         testUser12.setPassword(passwordEncoder.encode("123456"));
         var profile12 = new Profile();
         testUser12.setProfile(profile12);
@@ -103,8 +117,6 @@ public class initData implements CommandLineRunner {
         post5.setMedia(media1);
         posts1.add(post5);
 
-
-
         var testUser1 = new User();
         testUser1.setEmail("email@email2.com");
         testUser1.setUsername("The Grinch");
@@ -122,24 +134,6 @@ public class initData implements CommandLineRunner {
         testUser2.setPassword(passwordEncoder.encode("123456"));
         testUser2.setRole(roleAdmin);
         userRepository.save(testUser2);
-
-        Follower relation = new Follower();
-        relation.setFollower(testUser.getProfile());
-        relation.setFollowing(testUser1.getProfile());
-        followerRepository.save(relation);
-
-
-        var newTag = new Tag();
-        var newTag2 = new Tag();
-
-
-        newTag.setName("RPG");
-
-        newTag2.setName("FPS");
-
-        tagRepository.save(newTag);
-        tagRepository.save(newTag2);
-
 
         // !!! Only for testing purposes when creating our database !!!
         var profile3 = new Profile();

@@ -20,7 +20,6 @@ public class UserService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
     private final String roleUser = "USER";
 
     public void checkUniqueCredentials(String username, String email){
