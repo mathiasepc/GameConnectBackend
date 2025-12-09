@@ -2,6 +2,7 @@ package org.example.gameconnectbackend.services;
 
 import org.example.gameconnectbackend.dtos.postDtos.TimelinePostDTO;
 import org.example.gameconnectbackend.dtos.postDtos.ProfileDTO;
+import org.example.gameconnectbackend.exceptions.UserNotFoundException;
 import org.example.gameconnectbackend.mappers.PostMapper;
 import org.example.gameconnectbackend.models.Profile;
 import org.example.gameconnectbackend.models.User;
@@ -49,4 +50,6 @@ public class ProfileService {
 
         );
     }
+
+
 }

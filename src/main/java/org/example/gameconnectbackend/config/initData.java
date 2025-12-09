@@ -91,6 +91,17 @@ public class initData implements CommandLineRunner {
         testUser.setPosts(posts);
         userRepository.save(testUser);
 
+        var testUser12 = new User();
+        testUser12.setEmail("missSanta@email.com");
+        testUser12.setUsername("Miss Santa Claus");
+        testUser12.setRole(roleUser);
+
+        testUser12.setPassword(passwordEncoder.encode("123456"));
+        var profile12 = new Profile();
+        testUser12.setProfile(profile12);
+        profile12.setUser( testUser12);
+        profile12.setImg("https://thehill.com/wp-content/uploads/sites/2/2021/12/ca_mrsclaus_122321_getty.jpg");
+        userRepository.save(testUser12);
 
 
         //Test User 2
@@ -118,19 +129,42 @@ public class initData implements CommandLineRunner {
         profile1.setUser(testUser1);
         userRepository.save(testUser1);
 
+        var testUser2 = new User();
+        testUser2.setEmail("email@email3.com");
+        testUser2.setUsername("The Grinch2");
+        testUser2.setPassword(passwordEncoder.encode("123456"));
+        testUser2.setRole(roleAdmin);
+        userRepository.save(testUser2);
+
+        Follower relation = new Follower();
+        relation.setFollower(testUser.getProfile());
+        relation.setFollowing(testUser1.getProfile());
+        followerRepository.save(relation);
+
+
+        var newTag = new Tag();
+        var newTag2 = new Tag();
+
+
+        newTag.setName("RPG");
+
+        newTag2.setName("FPS");
+
+        tagRepository.save(newTag);
+        tagRepository.save(newTag2);
 
 
         // !!! Only for testing purposes when creating our database !!!
-        var profile2 = new Profile();
-        var testUser2 = new User();
-        testUser2.setEmail("email2@email.com");
-        testUser2.setUsername("username2");
-        testUser2.setRole(roleUser);
-        testUser2.setProfile(profile2);
-        testUser2.setPassword(passwordEncoder.encode("123456"));
-        profile2.setUser(testUser2);
-        userRepository.save(testUser2);
-        userRepository.delete(testUser2);
+        var profile3 = new Profile();
+        var testUser3 = new User();
+        testUser3.setEmail("email2@email.com");
+        testUser3.setUsername("username2");
+        testUser3.setRole(roleUser);
+        testUser3.setProfile(profile3);
+        testUser3.setPassword(passwordEncoder.encode("123456"));
+        profile3.setUser(testUser3);
+        userRepository.save(testUser3);
+        userRepository.delete(testUser3);
         // -----------------------------------------------------------
 
 
