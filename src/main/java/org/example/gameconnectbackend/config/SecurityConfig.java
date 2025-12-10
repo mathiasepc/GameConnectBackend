@@ -1,15 +1,25 @@
 package org.example.gameconnectbackend.config;
 
+import lombok.AllArgsConstructor;
+import org.example.gameconnectbackend.httpfilters.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
 import java.net.http.HttpClient;
@@ -19,22 +29,10 @@ import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig {
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public HttpClient igdbHttpClient() {
-        return HttpClient.newBuilder()
-                // Sets a timeout for the request.
-                .connectTimeout(Duration.ofSeconds(50))
-                .version(HttpClient.Version.HTTP_2)
-                .build();
-    }
-
+    private final UserDetailsService userDetailsService;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -47,9 +45,22 @@ public class SecurityConfig {
                 // ------------------------------------------
                 // !!! Here we configure our HttpSecurity !!!
                 .authorizeHttpRequests(c -> c
-                        .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/validate").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/search/**").permitAll()
                         .anyRequest().permitAll()
                 )
+                // Here we add the filter we made from JwtAuthenticationFilter
+                // This filter will run on every request
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                // Here we configure our exception handling
+                .exceptionHandling(c ->
+                {
+                    c.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+                    c.accessDeniedHandler((request, response, accessDeniedException) ->
+                            response.setStatus(HttpStatus.FORBIDDEN.value()));
+                })
                 // -------------------------------------------
                 .cors(c -> c.configurationSource(request -> {
                     CorsConfiguration corsConfiguration = new CorsConfiguration();
@@ -64,5 +75,37 @@ public class SecurityConfig {
 
 
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    // Configure our HttpClient
+    @Bean
+    public HttpClient HttpClient() {
+        return HttpClient.newBuilder()
+                // Sets a timeout for the request.
+                .connectTimeout(Duration.ofSeconds(50))
+                // which HttpClient to use
+                .version(HttpClient.Version.HTTP_2)
+                .build();
+    }
+
+    // This bean is used to authenticate the user
+    // It handles the authentication logic (login, logout, etc.)
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        var provider = new DaoAuthenticationProvider(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
+    }
+
+    // This bean is used to get the authentication manager
+    // It is used by Spring Security to authenticate the user
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) {
+        return configuration.getAuthenticationManager();
     }
 }

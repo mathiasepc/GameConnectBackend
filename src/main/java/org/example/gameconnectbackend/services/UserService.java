@@ -1,21 +1,16 @@
 package org.example.gameconnectbackend.services;
 
 import lombok.AllArgsConstructor;
-import org.example.gameconnectbackend.dtos.postDtos.PostSummaryDTO;
-import org.example.gameconnectbackend.dtos.postDtos.ProfileDTO;
 import org.example.gameconnectbackend.dtos.userDtos.RegisterUserRequest;
 import org.example.gameconnectbackend.dtos.userDtos.UserDto;
 import org.example.gameconnectbackend.exceptions.SameCredentialsException;
 import org.example.gameconnectbackend.mappers.UserMapper;
-import org.example.gameconnectbackend.models.Profile;
-import org.example.gameconnectbackend.models.User;
 import org.example.gameconnectbackend.repositories.RoleRepository;
 import org.example.gameconnectbackend.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -25,8 +20,8 @@ public class UserService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
     private final String roleUser = "USER";
+    private final PasswordEncoder passwordEncoder;
 
     public void checkUniqueCredentials(String username, String email){
         Map<String,String> errors = new HashMap<>();
@@ -43,9 +38,9 @@ public class UserService {
     public UserDto registerUser(RegisterUserRequest request){
         var user = userMapper.toEntity(request);
         var role = roleRepository.findByName(roleUser);
+
         user.setRole(role);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         userRepository.save(user);
 
         return userMapper.toDto(user);

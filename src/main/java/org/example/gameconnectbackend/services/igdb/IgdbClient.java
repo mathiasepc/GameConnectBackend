@@ -32,7 +32,7 @@ public class IgdbClient {
     public List<IgdbGame> postToGamesEndpoint() {
         String token = tokenProvider.getAccessToken();
         // The data we want to collect.
-        // Limit is 100, and we can request 8 times pr. sec.
+        // Limit is 100, and we can have 8 open request pr. sec.
         String form =
                 "fields name, genres.name;" +
                         "sort total_rating desc;" +

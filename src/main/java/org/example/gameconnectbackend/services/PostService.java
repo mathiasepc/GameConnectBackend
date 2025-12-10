@@ -1,25 +1,15 @@
 package org.example.gameconnectbackend.services;
 
 import org.example.gameconnectbackend.dtos.postDtos.PostDTO;
-import org.example.gameconnectbackend.dtos.postDtos.PostSummaryDTO;
-import org.example.gameconnectbackend.exceptions.ProfileNotFoundException;
+import org.example.gameconnectbackend.dtos.postDtos.TimelinePostDTO;
 import org.example.gameconnectbackend.exceptions.UserNotFoundException;
 import org.example.gameconnectbackend.interfaces.IPostService;
 import org.example.gameconnectbackend.mappers.PostMapper;
-import org.example.gameconnectbackend.models.Profile;
-import org.example.gameconnectbackend.models.Tag;
-import org.example.gameconnectbackend.models.User;
-import org.example.gameconnectbackend.repositories.PostRepository;
-import org.example.gameconnectbackend.repositories.ProfileRepository;
-import org.example.gameconnectbackend.repositories.TagRepository;
-import org.example.gameconnectbackend.repositories.UserRepository;
+import org.example.gameconnectbackend.models.*;
+import org.example.gameconnectbackend.repositories.*;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 public class PostService implements IPostService {
@@ -29,13 +19,15 @@ public class PostService implements IPostService {
     private final TagRepository tagRepository;
     private final ProfileRepository profileRepository;
     private final UserRepository userRepository;
+    private final FollowRepository followRepository;
 
-    public PostService(PostRepository postRepository, PostMapper postMapper, TagRepository tagRepository, ProfileRepository profileRepository, UserRepository userRepository) {
+    public PostService(PostRepository postRepository, PostMapper postMapper, TagRepository tagRepository, ProfileRepository profileRepository, UserRepository userRepository, FollowRepository followRepository) {
         this.postRepository = postRepository;
         this.postMapper = postMapper;
         this.tagRepository = tagRepository;
         this.profileRepository = profileRepository;
         this.userRepository = userRepository;
+        this.followRepository = followRepository;
     }
 
 
@@ -70,10 +62,27 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public List<PostSummaryDTO> getAllPosts() {
-        return postRepository.findAll().stream()
-                .map(postMapper::toPostSummaryDTO)
-                .sorted(Comparator.comparing(PostSummaryDTO::getCreatedAt).reversed())
-                .collect(Collectors.toList());
+    public List<TimelinePostDTO> getTimelinePosts(Long userId) {
+        Profile userProfile = profileRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        List<Profile> following = followRepository.findAllByFollower(userProfile)
+                .stream()
+                .map(Follower::getFollowing)
+                .toList();
+
+        List<Profile> sources = new ArrayList<>(following);
+        sources.add(userProfile);
+
+        List<User> users = sources.stream()
+                .map(Profile::getUser)
+                .toList();
+
+        return postRepository.findByUserIn(users)
+                .stream()
+                .sorted(Comparator.comparing(Post::getCreatedAt).reversed())
+                .map(TimelinePostDTO::new)
+                .toList();
     }
+
 }
