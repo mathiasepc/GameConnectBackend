@@ -16,5 +16,6 @@ public class CommentDTO {
 
     private Long postId;
     @NotNull
+    private Long userId;
     private String username;
 }
