@@ -1,8 +1,6 @@
 package org.example.gameconnectbackend.controllers;
 
 import org.example.gameconnectbackend.dtos.postDtos.ProfileDTO;
-import org.example.gameconnectbackend.models.Follower;
-import org.example.gameconnectbackend.repositories.ProfileRepository;
 import org.example.gameconnectbackend.services.ProfileService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +14,9 @@ import java.util.List;
 public class ProfileController {
 
     private final ProfileService profileService;
-    private final ProfileRepository profileRepository;
 
-    public ProfileController(ProfileService profileService, ProfileRepository profileRepository) {
+    public ProfileController(ProfileService profileService) {
         this.profileService = profileService;
-        this.profileRepository = profileRepository;
     }
 
     @GetMapping("/{id}")
@@ -33,8 +29,4 @@ public class ProfileController {
 
         return ResponseEntity.ok(dto);
     }
-
-
-
-
 }
