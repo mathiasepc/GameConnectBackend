@@ -59,5 +59,27 @@ public class IgdbClient {
             throw new RuntimeException("Error calling IGDB games endpoint", e);
         }
     }
+
+    //Search for Game
+    public List<IgdbGame> searchGames(String query) {
+        String token = tokenProvider.getAccessToken();
+        String form = "search \"" + query + "\"; fields id, name, cover.image_id; limit 20;";
+
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://api.igdb.com/v4/games"))
+                .header("Client-ID", clientId)
+                .header("Authorization", "Bearer " + token)
+                .header("Accept", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(form))
+                .build();
+
+        try {
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            return Arrays.asList(mapper.readValue(response.body(), IgdbGame[].class));
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException("Error searching IGDB games", e);
+        }
+    }
 }
 
