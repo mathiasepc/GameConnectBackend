@@ -1,6 +1,8 @@
 package org.example.gameconnectbackend.controllers;
 
+import org.example.gameconnectbackend.dtos.gameDto.GameDto;
 import org.example.gameconnectbackend.dtos.postDtos.ProfileDTO;
+import org.example.gameconnectbackend.models.Profile;
 import org.example.gameconnectbackend.services.ProfileService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,13 @@ public class ProfileController {
         if(dto == null) {
             return ResponseEntity.notFound().build();
         }
+
+        return ResponseEntity.ok(dto);
+    }
+
+    @PostMapping("/{id}/games")
+    public ResponseEntity<?> addGameToProfile(@RequestBody GameDto gameDto, @PathVariable Long id) {
+        ProfileDTO dto = profileService.addGameToProfile(gameDto, id);
 
         return ResponseEntity.ok(dto);
     }

@@ -62,7 +62,7 @@ public class UserService {
                     newGame.setId(request.getGameId());
                     newGame.setName(request.getGameName());
                     newGame.setImg(request.getGameImg());
-                    return gameRepository.save(newGame); // save new game if not present
+                    return gameRepository.save(newGame);
                 });
 
         games.add(game);
