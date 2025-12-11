@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin
-public interface PostRepository extends JpaRepository<Post, Integer> {
+public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findByUserIn(List<User> users);
 }
