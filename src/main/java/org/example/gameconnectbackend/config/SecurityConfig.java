@@ -49,6 +49,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/validate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/search/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/timeline/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 // Here we add the filter we made from JwtAuthenticationFilter
