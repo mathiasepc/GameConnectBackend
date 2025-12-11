@@ -18,4 +18,7 @@ public class RegisterUserRequest {
     private String password;
     @NotNull(message = "Picture cannot be empty")
     private String img;
+    private String gameImg;
+    private String gameName;
+    private Long gameId;
 }
