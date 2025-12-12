@@ -4,6 +4,8 @@ package org.example.gameconnectbackend.dtos.postDtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.gameconnectbackend.dtos.gameDto.GameDto;
+import org.example.gameconnectbackend.models.Profile;
 
 import java.util.List;
 
@@ -19,4 +21,6 @@ public class ProfileDTO {
     private int followers;
     private int followings;
     boolean followed;
+    private List<GameDto> games;
+
 }

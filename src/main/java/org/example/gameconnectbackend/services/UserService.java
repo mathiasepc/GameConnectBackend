@@ -9,13 +9,18 @@ import org.example.gameconnectbackend.exceptions.SameCredentialsException;
 import org.example.gameconnectbackend.exceptions.UserNotFoundException;
 import org.example.gameconnectbackend.interfaces.IUserService;
 import org.example.gameconnectbackend.mappers.UserMapper;
+import org.example.gameconnectbackend.models.Game;
+import org.example.gameconnectbackend.models.Profile;
+import org.example.gameconnectbackend.repositories.GameRepository;
 import org.example.gameconnectbackend.repositories.RoleRepository;
 import org.example.gameconnectbackend.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @AllArgsConstructor
 
@@ -26,6 +31,7 @@ public class UserService implements IUserService {
     private final RoleRepository roleRepository;
     private final String roleUser = "USER";
     private final PasswordEncoder passwordEncoder;
+    private final GameRepository gameRepository;
 
     public void checkUniqueCredentials(String username, String email) {
         Map<String, String> errors = new HashMap<>();
@@ -58,6 +64,27 @@ public class UserService implements IUserService {
 
         user.setRole(role);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        Profile profile = new Profile();
+        profile.setImg(request.getImg());
+        profile.setBio("");
+        profile.setUser(user);
+        user.setProfile(profile);
+
+        Set<Game> games = new HashSet<>();
+
+        Game game = gameRepository.findById(request.getGameId())
+                .orElseGet(() -> {
+                    Game newGame = new Game();
+                    newGame.setId(request.getGameId());
+                    newGame.setName(request.getGameName());
+                    newGame.setImg(request.getGameImg());
+                    return gameRepository.save(newGame);
+                });
+
+        games.add(game);
+        user.getProfile().setFavouriteGames(games);
+
         userRepository.save(user);
 
         return userMapper.toDto(user);
