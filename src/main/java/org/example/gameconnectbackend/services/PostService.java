@@ -93,8 +93,15 @@ public class PostService implements IPostService {
         return postRepository.findByUserIn(users)
                 .stream()
                 .sorted(Comparator.comparing(Post::getCreatedAt).reversed())
-                .map(TimelinePostDTO::new)
+                .map(post -> {
+                    TimelinePostDTO dto = new TimelinePostDTO(post);
+                    dto.setCommentCount(
+                            commentRepository.countByPostId(post.getId())
+                    );
+                    return dto;
+                })
                 .toList();
+
     }
 
     @Override
@@ -121,7 +128,7 @@ public class PostService implements IPostService {
 
     @Override
     public List<CommentDTO> getComments(Long postId) {
-        List<Comment> comments = commentRepository.findAllById(Collections.singleton(postId));
+        List<Comment> comments = commentRepository.findByPostId(postId);
         List<CommentDTO> commentDTOs = new ArrayList<>();
         for (Comment comment : comments) {
             commentDTOs.add(commentMapper.commentToCommentDTO(comment));
