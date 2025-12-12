@@ -27,7 +27,7 @@ public class AdminController {
     }
 
     @CrossOrigin
-    @DeleteMapping("delete-user")
+    @DeleteMapping("/delete-user")
     public ResponseEntity<Boolean> deleteUser(@RequestParam long id) {
         System.out.println("hello from delete user");
        var response = adminService.deleteUser(id);
