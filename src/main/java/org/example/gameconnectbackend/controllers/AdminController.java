@@ -20,13 +20,13 @@ public class AdminController {
     }
 
     @CrossOrigin
-    @GetMapping("see-users/{page}/{usersPerPage}")
+    @GetMapping("/see-users/{page}/{usersPerPage}")
     public ResponseEntity<List<AdminUserDto>> getPageOfUsers(@PathVariable int page, @PathVariable int usersPerPage) {
         var response = adminService.getPageOfUsers(page, usersPerPage);
         return ResponseEntity.ok(response);
     }
 
-    @CrossOrigin
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/delete-user")
     public ResponseEntity<Boolean> deleteUser(@RequestParam long id) {
         System.out.println("hello from delete user");
