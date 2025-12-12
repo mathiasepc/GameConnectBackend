@@ -22,6 +22,7 @@ public class TimelinePostDTO {
     private String username;
     private String img;
     private Set<Tag> tags;
+    private Long commentsCount;
 
     public TimelinePostDTO(Post post) {
         this.id = post.getId();
@@ -31,6 +32,10 @@ public class TimelinePostDTO {
         this.username = post.getUser().getUsername();
         this.img = post.getUser().getProfile().getImg();
         this.tags = post.getTags();
+    }
+
+    public void setCommentCount(long commentCount) {
+        this.commentsCount = commentCount;
     }
 }
 

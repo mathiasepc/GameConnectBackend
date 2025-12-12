@@ -13,4 +13,6 @@ public interface IPostService {
     List<TimelinePostDTO> getTimelinePosts(Long userId);
 
     CommentDTO createComment(CommentDTO request);
+
+    List<CommentDTO> getComments(Long postId);
 }

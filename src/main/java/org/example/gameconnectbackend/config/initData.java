@@ -23,6 +23,8 @@ public class initData implements CommandLineRunner {
     private final PasswordEncoder passwordEncoder;
     private final ProfileRepository profileRepository;
     private final FollowRepository followRepository;
+    private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -147,6 +149,131 @@ public class initData implements CommandLineRunner {
         userRepository.save(testUser3);
         userRepository.delete(testUser3);
         // -----------------------------------------------------------
+
+        // --- Comment Initialization ---
+        List<Comment> comments = new ArrayList<>();
+
+// Santa’s Post 1 – "Catch me live!"
+        comments.add(new Comment(
+                null,
+                Instant.now().minus(30, ChronoUnit.MINUTES),
+                "Sweetie, maybe tell them what time? Not everyone lives in the North Pole timezone ❤️",
+                post1,
+                "Miss Santa Claus"
+        ));
+        comments.add(new Comment(
+                null,
+                Instant.now().minus(25, ChronoUnit.MINUTES),
+                "Live? So I can watch you miss all your shots in real time? Tempting.",
+                post1,
+                "The Grinch"
+        ));
+        comments.add(new Comment(
+                null,
+                Instant.now().minus(20, ChronoUnit.MINUTES),
+                "Streaming privileges are a gift, Santa. Try not to violate the TOS again.",
+                post1,
+                "The Grinch2"
+        ));
+
+
+// Santa’s Post 2 – "WHO ATE ALL MY COOKIES?"
+        comments.add(new Comment(
+                null,
+                Instant.now().minus(50, ChronoUnit.MINUTES),
+                "It was you. It’s always you. Check your beard crumbs.",
+                post2,
+                "Miss Santa Claus"
+        ));
+        comments.add(new Comment(
+                null,
+                Instant.now().minus(45, ChronoUnit.MINUTES),
+                "I would never steal your cookies. I prefer stealing hopes and dreams.",
+                post2,
+                "The Grinch"
+        ));
+        comments.add(new Comment(
+                null,
+                Instant.now().minus(40, ChronoUnit.MINUTES),
+                "Cookies confiscated for… ‘quality assurance’ purposes.",
+                post2,
+                "The Grinch2"
+        ));
+
+
+// Santa’s Post 3 – "WHO WANTS TO SHOOT SOME ROBOTS?"
+        comments.add(new Comment(
+                null,
+                Instant.now().minus(15, ChronoUnit.MINUTES),
+                "You can shoot robots after you finish the gift-wrapping you promised me.",
+                post3,
+                "Miss Santa Claus"
+        ));
+        comments.add(new Comment(
+                null,
+                Instant.now().minus(12, ChronoUnit.MINUTES),
+                "Robots? Finally, something I can shoot without paperwork.",
+                post3,
+                "The Grinch"
+        ));
+        comments.add(new Comment(
+                null,
+                Instant.now().minus(10, ChronoUnit.MINUTES),
+                "Loading in. If a robot kills you again, I'm recording it.",
+                post3,
+                "The Grinch2"
+        ));
+
+
+// Santa’s Post 4 – "Last arc marathon before XMAS!"
+        comments.add(new Comment(
+                null,
+                Instant.now().minus(5, ChronoUnit.MINUTES),
+                "Count me in 😘 But I'm not carrying you this time.",
+                post4,
+                "Miss Santa Claus"
+        ));
+        comments.add(new Comment(
+                null,
+                Instant.now().minus(4, ChronoUnit.MINUTES),
+                "Marathon? Buddy, you get winded opening a loot box.",
+                post4,
+                "The Grinch"
+        ));
+        comments.add(new Comment(
+                null,
+                Instant.now().minus(3, ChronoUnit.MINUTES),
+                "I'll join if you promise not to yell like a broken smoke alarm this time.",
+                post4,
+                "The Grinch2"
+        ));
+
+
+// Grinch’s Post 5 – "Grinch Pack now available!"
+        comments.add(new Comment(
+                null,
+                Instant.now().minus(45, ChronoUnit.MINUTES),
+                "Downloading immediately. If this doesn't turn my aim green, I'm suing.",
+                post5,
+                "Santa Claus"
+        ));
+        comments.add(new Comment(
+                null,
+                Instant.now().minus(42, ChronoUnit.MINUTES),
+                "I support your creativity, even if your personality is 90% spite.",
+                post5,
+                "Miss Santa Claus"
+        ));
+        comments.add(new Comment(
+                null,
+                Instant.now().minus(40, ChronoUnit.MINUTES),
+                "Finally, a mod that reflects your inner ugliness. Approved.",
+                post5,
+                "The Grinch2"
+        ));
+
+// Save all comments
+        commentRepository.saveAll(comments);
 
 
 
