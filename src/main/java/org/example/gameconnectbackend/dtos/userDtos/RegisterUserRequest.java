@@ -16,4 +16,9 @@ public class RegisterUserRequest {
     @NotNull(message = "Password cannot be empty")
     @Size(min = 6, max = 25, message = "Password must be between 6 and 25 characters")
     private String password;
+    @NotNull(message = "Picture cannot be empty")
+    private String img;
+    private String gameImg;
+    private String gameName;
+    private Long gameId;
 }

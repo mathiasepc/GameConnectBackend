@@ -8,5 +8,6 @@ import java.util.List;
 public class GameDto {
     private Long id;
     private String name;
+    private String img;
     private List<GameCategoryDto> games;
 }
