@@ -65,12 +65,21 @@ public class initData implements CommandLineRunner {
         media.setPath("https://cdn.mos.cms.futurecdn.net/X4ksjqW5jFwk9fqBQWEvrc-840-80.jpg.webp");
         post1.setMedia(media);
         var post2 = new Post();
-        post2.setContent("WHO ATE ALL MY COOKIES?");
+        Media media4 = new Media();
+        media4.setPath("https://www.gameskinny.com/wp-content/uploads/2023/12/wow-classic-sod-hardcore-winter-veil-guide.jpg");
+        post2.setMedia(media4);
+        post2.setContent("It's about that time of year again, will see you all soon in Iron Forge!");
         post2.setCreatedAt(Instant.now().minus(5, ChronoUnit.HOURS));
         var post3 = new Post();
+        Media media2 = new Media();
+        media2.setPath("https://arkaden.dk/app/uploads/2025/11/ARC-Raiders-billede-1.jpg");
+        post3.setMedia(media2);
         post3.setContent("WHO WANTS TO SHOOT SOME ROBOTS?????!?!??!?!");
         post3.setCreatedAt(Instant.now().minus(1, ChronoUnit.HOURS));
         var post4 = new Post();
+        Media media3 = new Media();
+        media3.setPath("https://www.gamereactor.dk/media/48/arcraiders_3664883_650x.jpg");
+        post4.setMedia(media3);
         post4.setContent("Last arc marathon before XMAS! WHO WANTS SOME?");
         post4.setCreatedAt(Instant.now().minus(2, ChronoUnit.HOURS));
 

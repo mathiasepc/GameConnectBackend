@@ -13,4 +13,5 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findByUserIn(List<User> users);
+    List<Post> findByUserNotIn(List<User> users);
 }
