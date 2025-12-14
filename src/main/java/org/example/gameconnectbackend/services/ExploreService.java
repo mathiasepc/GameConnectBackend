@@ -21,7 +21,6 @@ public class ExploreService {
 
     private final PostRepository postRepository;
     private final FollowRepository followRepository;
-    private final PostMapper postMapper;
     private final ProfileRepository profileRepository;
 
     public List<TimelinePostDTO> getExploreFeed(long currentUserId) {

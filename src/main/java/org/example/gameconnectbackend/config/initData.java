@@ -21,9 +21,6 @@ public class initData implements CommandLineRunner {
     private final RoleRepository roleRepository;
     private final TagRepository tagRepository;
     private final PasswordEncoder passwordEncoder;
-    private final ProfileRepository profileRepository;
-    private final FollowRepository followRepository;
-    private final PostRepository postRepository;
     private final CommentRepository commentRepository;
 
     @Override
