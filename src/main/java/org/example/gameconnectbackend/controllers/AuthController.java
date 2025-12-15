@@ -29,6 +29,8 @@ public class AuthController {
     @PostMapping("login")
     public ResponseEntity<JwtResponse> login(
             @Valid @RequestBody LoginRequest request){
+        // This checks both username and password.
+        // Class AuthService: loadUserByUsername to collect the user from the database.
         authenticationManager.authenticate(
                 // UsernamePasswordAuthenticationToken have 2 constructors.
                 // We set the first constructor of UsernamePasswordAuthenticationToken
@@ -40,6 +42,7 @@ public class AuthController {
                 )
         );
 
+        // Errorhandling here is irrelevant. We already checked that the user exists above
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
 
         var token = jwtService.generateJwtToken(user);

@@ -1,6 +1,6 @@
 package org.example.gameconnectbackend.services;
 
-import org.example.gameconnectbackend.dtos.postDtos.FollowProfileDTO;
+import org.example.gameconnectbackend.dtos.profileDtos.FollowProfileDTO;
 import org.example.gameconnectbackend.models.Follower;
 import org.example.gameconnectbackend.models.Profile;
 import org.example.gameconnectbackend.repositories.FollowRepository;

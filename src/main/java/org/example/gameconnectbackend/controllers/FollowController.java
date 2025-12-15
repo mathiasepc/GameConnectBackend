@@ -1,6 +1,6 @@
 package org.example.gameconnectbackend.controllers;
 
-import org.example.gameconnectbackend.dtos.postDtos.FollowProfileDTO;
+import org.example.gameconnectbackend.dtos.profileDtos.FollowProfileDTO;
 import org.example.gameconnectbackend.services.FollowService;
 import org.example.gameconnectbackend.services.ProfileService;
 import org.springframework.web.bind.annotation.*;

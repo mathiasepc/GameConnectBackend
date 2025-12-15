@@ -15,11 +15,13 @@ import java.util.Set;
 @Table(name = "games")
 public class Game {
     @Id
-    private int id;
+    private Long id;
     @Column(name = "name")
     private String name;
     @ManyToMany(mappedBy = "favouriteGames")
     private Set<Profile> profiles;
+
+    private String img;
 
     @ManyToMany
     @JoinTable(
