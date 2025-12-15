@@ -21,7 +21,6 @@ import java.util.Map;
 public class UserController {
     private final IUserService userService;
 
-
     @PostMapping
     public ResponseEntity<?> registerUser(
             @Valid @RequestBody RegisterUserRequest request

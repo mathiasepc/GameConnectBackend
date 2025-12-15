@@ -46,8 +46,8 @@ public class SecurityConfig {
                 // !!! Here we configure our HttpSecurity !!!
                 .authorizeHttpRequests(c -> c
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/validate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/search/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/timeline/**").permitAll()
                         .anyRequest().permitAll()
