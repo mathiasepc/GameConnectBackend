@@ -51,7 +51,7 @@ public class initData implements CommandLineRunner {
         var profile = new Profile();
         profile.setBio("When I am not giving out toys to all the good little girls and boys, I love to fuck shit up on ARC Raiders.");
         profile.setImg("https://images.pexels.com/photos/716658/pexels-photo-716658.jpeg");
-        List<Post> posts = new ArrayList<>();
+        Set<Post> posts = new HashSet<>();
         var post1 = new Post();
         post1.setContent("Catch me live!");
         post1.setCreatedAt(Instant.now().minus(3, ChronoUnit.HOURS));
@@ -106,7 +106,7 @@ public class initData implements CommandLineRunner {
         profile1.setBio("That's what it's all about, isn't it? Games, games... games, games, games, games, games!");
         profile1.setImg("https://icon2.cleanpng.com/20240303/utg/transparent-grinch-the-grinchs-angry-facial-expression-in-1710854420578.webp");
 
-        List<Post> posts1 = new ArrayList<>();
+        Set<Post> posts1 = new HashSet<>();
         var post5 = new Post();
         post5.setContent("For all you counter strikers out there - Grinch Pack from Gamebanana now available!");
         post5.setCreatedAt(Instant.now().minus(2, ChronoUnit.HOURS));
