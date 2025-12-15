@@ -12,6 +12,7 @@ import org.example.gameconnectbackend.models.*;
 import org.example.gameconnectbackend.repositories.*;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.*;
 
 @Service
@@ -92,25 +93,47 @@ public class PostService implements IPostService {
         return postRepository.findByUserIn(users)
                 .stream()
                 .sorted(Comparator.comparing(Post::getCreatedAt).reversed())
-                .map(TimelinePostDTO::new)
+                .map(post -> {
+                    TimelinePostDTO dto = new TimelinePostDTO(post);
+                    dto.setCommentCount(
+                            commentRepository.countByPostId(post.getId())
+                    );
+                    return dto;
+                })
                 .toList();
+
     }
 
     @Override
     public CommentDTO createComment(CommentDTO request) {
-        Post post = postRepository.findById(request.getPostId()).orElseThrow(()
-                -> new PostNotFoundException("Post not found"));
+        Post post = postRepository.findById(request.getPostId())
+                .orElseThrow(() -> new PostNotFoundException("Post not found"));
+
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
 
         Comment comment = new Comment();
         comment.setPost(post);
         comment.setContent(request.getContent());
-        comment.setCreatedAt(post.getCreatedAt());
-        comment.setUsername(request.getUsername());
+        comment.setCreatedAt(request.getCreatedAt());
+        comment.setUsername(user.getUsername());
 
         Comment saved = commentRepository.save(comment);
 
         CommentDTO dto = commentMapper.commentToCommentDTO(saved);
+        dto.setUserId(user.getId());
+
         return dto;
+    }
+
+    @Override
+    public List<CommentDTO> getComments(Long postId) {
+        List<Comment> comments = commentRepository.findByPostId(postId);
+        List<CommentDTO> commentDTOs = new ArrayList<>();
+        for (Comment comment : comments) {
+            commentDTOs.add(commentMapper.commentToCommentDTO(comment));
+        }
+        return commentDTOs;
     }
 
 }

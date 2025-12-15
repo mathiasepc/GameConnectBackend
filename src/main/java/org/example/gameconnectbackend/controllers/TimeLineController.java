@@ -38,4 +38,11 @@ public class TimeLineController {
         var response = postService.createComment(request);
         return ResponseEntity.ok( response);
     }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/posts/{postId}/comments")
+    public List<CommentDTO> getComments(@PathVariable Long postId) {
+        var response = postService.getComments(postId);
+        return response;
+    }
 }
