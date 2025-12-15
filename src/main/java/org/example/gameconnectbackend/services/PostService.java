@@ -93,6 +93,7 @@ public class PostService implements IPostService {
                 .map(Profile::getUser)
                 .toList();
 
+
         return postRepository.findByUserIn(users)
                 .stream()
                 .sorted(Comparator.comparing(Post::getCreatedAt).reversed())
