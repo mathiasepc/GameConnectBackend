@@ -26,6 +26,7 @@ public class JwtService implements IJwtService {
     // https://www.jwt.io/
 
     // We generate our token here
+    @Override
     public String generateJwtToken(User user) {
         return Jwts.builder()
                 // subject "sub": "" in a jwt token
@@ -43,6 +44,7 @@ public class JwtService implements IJwtService {
     }
 
     // We validate our token here
+    @Override
     public boolean validateJwtToken(String authToken) {
         try {
             var claims = getClaims(authToken);
@@ -67,11 +69,13 @@ public class JwtService implements IJwtService {
                 .getPayload();
     }
 
+    @Override
     public Long getUserIdFromToken(String token){
         return  Long.valueOf(getClaims(token).getSubject());
 
     }
 
+    @Override
     public String getRoleFromToken(String token){
         return getClaims(token).get("role", String.class);
     }

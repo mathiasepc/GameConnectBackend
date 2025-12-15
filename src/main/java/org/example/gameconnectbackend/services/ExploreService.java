@@ -23,6 +23,7 @@ public class ExploreService implements IExploreService {
     private final FollowRepository followRepository;
     private final ProfileRepository profileRepository;
 
+    @Override
     public List<TimelinePostDTO> getExploreFeed(long currentUserId) {
         Profile currentUserProfile = profileRepository
                 .findById(currentUserId)

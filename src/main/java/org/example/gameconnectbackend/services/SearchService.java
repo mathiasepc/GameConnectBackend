@@ -16,18 +16,16 @@ public class SearchService implements ISearchService {
     private final UserRepository userRepository;
 
 
-
-
     public SearchService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-
+    @Override
     public List<SearchResultDTO> searchForProfiles(String searchWord) {
-        List<User> foundUsers =userRepository.findByUsername(searchWord);
+        List<User> foundUsers = userRepository.findByUsername(searchWord);
         List<SearchResultDTO> searchResultDTOS = new ArrayList<>();
 
-        for (User user: foundUsers){
+        for (User user : foundUsers) {
             Profile profile = user.getProfile();
             if (profile == null) continue;
             SearchResultDTO searchResultDTO = new SearchResultDTO();

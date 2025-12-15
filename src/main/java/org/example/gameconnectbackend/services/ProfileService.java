@@ -1,5 +1,6 @@
 package org.example.gameconnectbackend.services;
 
+import jakarta.transaction.Transactional;
 import org.example.gameconnectbackend.dtos.gameDto.GameDto;
 import org.example.gameconnectbackend.dtos.postDtos.TimelinePostDTO;
 import org.example.gameconnectbackend.dtos.postDtos.ProfileDTO;
@@ -39,6 +40,7 @@ public class ProfileService implements IProfileService {
         this.profileMapper = profileMapper;
     }
 
+    @Override
     public ProfileDTO getProfileDTO(Long id, Long currentUserId) {
         User user = userRepository.findById(id).orElse(null);
         if(user == null) return null;
@@ -70,6 +72,8 @@ public class ProfileService implements IProfileService {
         );
     }
 
+    @Transactional
+    @Override
     public ProfileDTO addGameToProfile(GameDto gameDto, Long currentUserId) {
         Profile profile = profileRepository.findById(currentUserId).orElse(null);
 
@@ -92,6 +96,7 @@ public class ProfileService implements IProfileService {
         return profileMapper.toDto(profile);
     }
 
+    @Override
     public ProfileDTO updateBio(Long currentUserId, String updatedBio) {
         Profile profile = profileRepository.findById(currentUserId).orElseThrow(() -> new IllegalArgumentException("Profile not found"));
 
@@ -101,6 +106,7 @@ public class ProfileService implements IProfileService {
         return profileMapper.toDto(profile);
     }
 
+    @Override
     public ProfileDTO updateImg(Long currentUserId, String updatedImg) {
         Profile profile = profileRepository.findById(currentUserId).orElseThrow(() -> new IllegalArgumentException("Profile not found"));
 
@@ -109,6 +115,4 @@ public class ProfileService implements IProfileService {
 
         return profileMapper.toDto(profile);
     }
-
-
 }

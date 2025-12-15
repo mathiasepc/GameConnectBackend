@@ -22,6 +22,7 @@ public class FollowService implements IFollowService {
         this.profileRepository = profileRepository;
     }
 
+    @Override
     public void follow(long followerId, long followingId) {
         if(followerId == followingId) {
             throw new IllegalArgumentException("Cannot follow yourself");
@@ -39,6 +40,7 @@ public class FollowService implements IFollowService {
         }
     }
 
+    @Override
     public void unfollow(Long followerId, Long followingId) {
         Profile follower = profileRepository.findById(followerId).orElse(null);
         Profile following = profileRepository.findById(followingId).orElse(null);
@@ -48,6 +50,7 @@ public class FollowService implements IFollowService {
         followRepository.delete(follow);
     }
 
+    @Override
     public List<FollowProfileDTO> getFollowers(Long profileId) {
         Profile profile = profileRepository.findById(profileId).orElse(null);
         if (profile == null) return Collections.emptyList();
@@ -63,6 +66,7 @@ public class FollowService implements IFollowService {
                 .toList();
     }
 
+    @Override
     public List<FollowProfileDTO> getFollowing(Long profileId) {
         Profile profile = profileRepository.findById(profileId).orElse(null);
         if (profile == null) return Collections.emptyList();
