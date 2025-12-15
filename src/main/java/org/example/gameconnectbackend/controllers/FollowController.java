@@ -17,12 +17,12 @@ public class FollowController {
     }
 
     @PostMapping("/{followerId}/follow/{followingId}")
-    public void follow(@PathVariable long followerId, @PathVariable long followingId) {
+    public void follow(@PathVariable Long followerId, @PathVariable Long followingId) {
         followService.follow(followerId, followingId);
     }
 
     @DeleteMapping("/{followerId}/unfollow/{followingId}")
-    public void unfollow(@PathVariable long followerId, @PathVariable long followingId) {
+    public void unfollow(@PathVariable Long followerId, @PathVariable Long followingId) {
         followService.unfollow(followerId, followingId);
     }
 

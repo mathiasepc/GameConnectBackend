@@ -23,7 +23,7 @@ public class FollowService implements IFollowService {
     }
 
     @Override
-    public void follow(long followerId, long followingId) {
+    public void follow(Long followerId, Long followingId) {
         if(followerId == followingId) {
             throw new IllegalArgumentException("Cannot follow yourself");
         }

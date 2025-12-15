@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,5 +21,5 @@ public class Role {
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "role", cascade = CascadeType.MERGE)
-    private List<User> users;
+    private Set<User> users;
 }
