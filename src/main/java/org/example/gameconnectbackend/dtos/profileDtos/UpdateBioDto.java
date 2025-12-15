@@ -1,6 +1,6 @@
 package org.example.gameconnectbackend.dtos.profileDtos;
 
-public class UpdateBiodto {
+public class UpdateBioDto {
     public String bio;
 
     public String getBio() {

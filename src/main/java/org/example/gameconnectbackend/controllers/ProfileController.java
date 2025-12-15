@@ -2,8 +2,9 @@ package org.example.gameconnectbackend.controllers;
 
 import org.example.gameconnectbackend.dtos.gameDto.GameDto;
 import org.example.gameconnectbackend.dtos.postDtos.ProfileDTO;
-import org.example.gameconnectbackend.dtos.profileDtos.UpdateBiodto;
+import org.example.gameconnectbackend.dtos.profileDtos.UpdateBioDto;
 import org.example.gameconnectbackend.dtos.profileDtos.UpdateImgDto;
+import org.example.gameconnectbackend.dtos.profileDtos.UpdateUsernameDto;
 import org.example.gameconnectbackend.interfaces.IProfileService;
 import org.example.gameconnectbackend.services.ProfileService;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class ProfileController {
     }
 
     @PatchMapping("/{id}/bio")
-    public ResponseEntity<ProfileDTO> updateBio(@PathVariable Long id, @RequestBody UpdateBiodto dto) {
+    public ResponseEntity<ProfileDTO> updateBio(@PathVariable Long id, @RequestBody UpdateBioDto dto) {
         ProfileDTO updated = profileService.updateBio(id, dto.getBio());
         return ResponseEntity.ok(updated);
     }
@@ -49,4 +50,9 @@ public class ProfileController {
         return ResponseEntity.ok(updated);
     }
 
+    @PatchMapping("/{id}/username")
+    public ResponseEntity<ProfileDTO> updateUsername(@PathVariable Long id, @RequestBody UpdateUsernameDto dto) {
+        ProfileDTO updated = profileService.updateUsername(id, dto.getUsername());
+        return ResponseEntity.ok(updated);
+    }
 }

@@ -8,4 +8,6 @@ public interface IProfileService {
     ProfileDTO addGameToProfile(GameDto gameDto, Long currentUserId);
     ProfileDTO updateBio(Long currentUserId, String updatedBio);
     ProfileDTO updateImg(Long currentUserId, String updatedImg);
+
+    ProfileDTO updateUsername(Long id, String username);
 }
