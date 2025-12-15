@@ -89,4 +89,11 @@ public class UserService implements IUserService {
 
         return userMapper.toDto(user);
     }
+
+    public UserDto findEmail(String email) {
+        var user = userRepository.findByEmail(email).orElse(null);
+        if (user == null) throw new UserNotFoundException();
+
+        return userMapper.toDto(user);
+    }
 }

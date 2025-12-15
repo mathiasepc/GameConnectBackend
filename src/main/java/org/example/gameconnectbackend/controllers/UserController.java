@@ -8,7 +8,7 @@ import org.example.gameconnectbackend.dtos.userDtos.UserDto;
 import org.example.gameconnectbackend.exceptions.AccesDeniedException;
 import org.example.gameconnectbackend.exceptions.SameCredentialsException;
 import org.example.gameconnectbackend.exceptions.UserNotFoundException;
-import org.example.gameconnectbackend.services.UserService;
+import org.example.gameconnectbackend.interfaces.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("users")
 public class UserController {
-    private final UserService userService;
+    private final IUserService userService;
+
 
     @PostMapping
     public ResponseEntity<?> registerUser(
@@ -33,13 +34,21 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
-    @PostMapping("{id}/change-password")
-    public ResponseEntity<UserDto> changePassword(
+    @PostMapping("email")
+    public ResponseEntity<Long> checkEmail(
+            @RequestParam(name = "email") String email) {
+        var user = userService.findEmail(email);
+
+        return ResponseEntity.ok(user.getId());
+    }
+
+    @PutMapping("{id}/change-password")
+    public ResponseEntity<Boolean> changePassword(
             @PathVariable(name = "id") Long id,
             @Valid @RequestBody ChangePasswordRequest request) {
         var user = userService.changePassword(id, request);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(user != null);
     }
 
     @ExceptionHandler(UserNotFoundException.class)
