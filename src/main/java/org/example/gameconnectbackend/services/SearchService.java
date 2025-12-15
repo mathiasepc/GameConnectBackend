@@ -2,10 +2,9 @@ package org.example.gameconnectbackend.services;
 
 import org.example.gameconnectbackend.dtos.searchDtos.SearchResultDTO;
 
-import org.example.gameconnectbackend.mappers.UserMapper;
+import org.example.gameconnectbackend.interfaces.ISearchService;
 import org.example.gameconnectbackend.models.Profile;
 import org.example.gameconnectbackend.models.User;
-import org.example.gameconnectbackend.repositories.ProfileRepository;
 import org.example.gameconnectbackend.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,18 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class SearchService {
-
-    private final ProfileRepository profileRepository;
+public class SearchService implements ISearchService {
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
 
 
 
-    public SearchService(ProfileRepository profileRepository, UserRepository userRepository,  UserMapper userMapper) {
-        this.profileRepository = profileRepository;
+
+    public SearchService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userMapper = userMapper;
     }
 
 

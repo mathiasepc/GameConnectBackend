@@ -2,7 +2,7 @@ package org.example.gameconnectbackend.services;
 
 import lombok.AllArgsConstructor;
 import org.example.gameconnectbackend.dtos.postDtos.TimelinePostDTO;
-import org.example.gameconnectbackend.mappers.PostMapper;
+import org.example.gameconnectbackend.interfaces.IExploreService;
 import org.example.gameconnectbackend.models.Follower;
 import org.example.gameconnectbackend.models.Post;
 import org.example.gameconnectbackend.models.Profile;
@@ -17,7 +17,7 @@ import java.util.Objects;
 
 @Service
 @AllArgsConstructor
-public class ExploreService {
+public class ExploreService implements IExploreService {
 
     private final PostRepository postRepository;
     private final FollowRepository followRepository;

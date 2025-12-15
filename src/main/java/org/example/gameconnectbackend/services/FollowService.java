@@ -1,6 +1,7 @@
 package org.example.gameconnectbackend.services;
 
 import org.example.gameconnectbackend.dtos.profileDtos.FollowProfileDTO;
+import org.example.gameconnectbackend.interfaces.IFollowService;
 import org.example.gameconnectbackend.models.Follower;
 import org.example.gameconnectbackend.models.Profile;
 import org.example.gameconnectbackend.repositories.FollowRepository;
@@ -11,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class FollowService {
+public class FollowService implements IFollowService {
 
     private final FollowRepository followRepository;
     private final ProfileRepository profileRepository;
