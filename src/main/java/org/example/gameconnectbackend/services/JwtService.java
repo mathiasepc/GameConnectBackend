@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.example.gameconnectbackend.interfaces.IJwtService;
 import org.example.gameconnectbackend.models.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.Date;
 // and get information from the token payload
 
 @Service
-public class JwtService {
+public class JwtService implements IJwtService {
     @Value("${jwt.secret}")
     private String secret;
     // 1 day
