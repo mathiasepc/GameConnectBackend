@@ -93,4 +93,31 @@ public class ProfileService {
 
         return profileMapper.toDto(profile);
     }
+
+    public ProfileDTO updateBio(Long currentUserId, String updatedBio) {
+        Profile profile = profileRepository.findById(currentUserId).orElseThrow(() -> new IllegalArgumentException("Profile not found"));
+
+        profile.setBio(updatedBio);
+        profileRepository.save(profile);
+
+        return profileMapper.toDto(profile);
+    }
+
+    public ProfileDTO updateImg(Long currentUserId, String updatedImg) {
+        Profile profile = profileRepository.findById(currentUserId).orElseThrow(() -> new IllegalArgumentException("Profile not found"));
+
+        profile.setImg(updatedImg);
+        profileRepository.save(profile);
+
+        return profileMapper.toDto(profile);
+    }
+
+//    public ProfileDTO updateUserName(Long currentUserId, String name) {
+//        Profile profile = profileRepository.findById(currentUserId).orElseThrow(() -> new IllegalArgumentException("Profile not found"));
+//
+//        profile.setImg(updatedImg);
+//        profileRepository.save(profile);
+//
+//        return profileMapper.toDto(profile);
+//    }
 }

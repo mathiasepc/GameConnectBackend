@@ -1,4 +1,4 @@
-package org.example.gameconnectbackend.dtos.postDtos;
+package org.example.gameconnectbackend.dtos.profileDtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
