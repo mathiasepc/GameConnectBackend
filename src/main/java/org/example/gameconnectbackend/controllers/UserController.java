@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.example.gameconnectbackend.dtos.userDtos.ChangePasswordRequest;
 import org.example.gameconnectbackend.dtos.userDtos.RegisterUserRequest;
-import org.example.gameconnectbackend.dtos.userDtos.UserDto;
 import org.example.gameconnectbackend.exceptions.AccesDeniedException;
 import org.example.gameconnectbackend.exceptions.SameCredentialsException;
 import org.example.gameconnectbackend.exceptions.UserNotFoundException;

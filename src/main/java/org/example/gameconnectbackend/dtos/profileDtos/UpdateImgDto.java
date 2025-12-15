@@ -1,6 +1,6 @@
 package org.example.gameconnectbackend.dtos.profileDtos;
 
-public class UpdateImgdto {
+public class UpdateImgDto {
     private String img;
 
     public String getImg() {

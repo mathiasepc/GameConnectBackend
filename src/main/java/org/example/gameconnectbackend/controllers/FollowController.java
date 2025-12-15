@@ -12,11 +12,9 @@ import java.util.List;
 public class FollowController {
 
     private final FollowService followService;
-    private final ProfileService profileService;
 
-    public FollowController(FollowService followService, ProfileService profileService) {
+    public FollowController(FollowService followService) {
         this.followService = followService;
-        this.profileService = profileService;
     }
 
     @PostMapping("/{followerId}/follow/{followingId}")
