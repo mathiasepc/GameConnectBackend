@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/explore")
 public class ExploreController {
-
     private final IExploreService exploreService;
 
     public ExploreController(IExploreService exploreService) {
@@ -20,7 +19,7 @@ public class ExploreController {
     }
 
     @GetMapping
-    public List<TimelinePostDTO> getExploreFeed(@RequestParam long currentUserId) {
+    public List<TimelinePostDTO> getExploreFeed(@RequestParam Long currentUserId) {
         return exploreService.getExploreFeed(currentUserId);
     }
 }

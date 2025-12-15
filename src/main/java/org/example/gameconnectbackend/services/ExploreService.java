@@ -24,7 +24,7 @@ public class ExploreService implements IExploreService {
     private final ProfileRepository profileRepository;
 
     @Override
-    public List<TimelinePostDTO> getExploreFeed(long currentUserId) {
+    public List<TimelinePostDTO> getExploreFeed(Long currentUserId) {
         Profile currentUserProfile = profileRepository
                 .findById(currentUserId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
