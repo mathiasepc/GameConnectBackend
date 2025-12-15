@@ -24,6 +24,8 @@ public class TimelinePostDTO {
     private Set<Tag> tags;
     private Long commentsCount;
     private Long userId;
+    private Long likesCount;
+    private boolean likedByMe;
 
     public TimelinePostDTO(Post post) {
         this.id = post.getId();
