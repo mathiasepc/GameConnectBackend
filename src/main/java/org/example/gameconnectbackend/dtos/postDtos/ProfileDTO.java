@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.gameconnectbackend.dtos.gameDto.GameDto;
-import org.example.gameconnectbackend.models.Profile;
 
 import java.util.List;
 

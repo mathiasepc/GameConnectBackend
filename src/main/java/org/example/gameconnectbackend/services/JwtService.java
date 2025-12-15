@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.example.gameconnectbackend.interfaces.IJwtService;
 import org.example.gameconnectbackend.models.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.Date;
 // and get information from the token payload
 
 @Service
-public class JwtService {
+public class JwtService implements IJwtService {
     @Value("${jwt.secret}")
     private String secret;
     // 1 day
@@ -25,6 +26,7 @@ public class JwtService {
     // https://www.jwt.io/
 
     // We generate our token here
+    @Override
     public String generateJwtToken(User user) {
         return Jwts.builder()
                 // subject "sub": "" in a jwt token
@@ -42,6 +44,7 @@ public class JwtService {
     }
 
     // We validate our token here
+    @Override
     public boolean validateJwtToken(String authToken) {
         try {
             var claims = getClaims(authToken);
@@ -66,11 +69,13 @@ public class JwtService {
                 .getPayload();
     }
 
+    @Override
     public Long getUserIdFromToken(String token){
         return  Long.valueOf(getClaims(token).getSubject());
 
     }
 
+    @Override
     public String getRoleFromToken(String token){
         return getClaims(token).get("role", String.class);
     }

@@ -1,7 +1,7 @@
 package org.example.gameconnectbackend.controllers;
 
 import org.example.gameconnectbackend.dtos.postDtos.TimelinePostDTO;
-import org.example.gameconnectbackend.services.ExploreService;
+import org.example.gameconnectbackend.interfaces.IExploreService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,9 +13,9 @@ import java.util.List;
 @RequestMapping("/explore")
 public class ExploreController {
 
-    private final ExploreService exploreService;
+    private final IExploreService exploreService;
 
-    public ExploreController(ExploreService exploreService) {
+    public ExploreController(IExploreService exploreService) {
         this.exploreService = exploreService;
     }
 
