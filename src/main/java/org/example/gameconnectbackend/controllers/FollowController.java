@@ -1,8 +1,7 @@
 package org.example.gameconnectbackend.controllers;
 
 import org.example.gameconnectbackend.dtos.profileDtos.FollowProfileDTO;
-import org.example.gameconnectbackend.services.FollowService;
-import org.example.gameconnectbackend.services.ProfileService;
+import org.example.gameconnectbackend.interfaces.IFollowService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,9 +10,9 @@ import java.util.List;
 @RequestMapping("/follows")
 public class FollowController {
 
-    private final FollowService followService;
+    private final IFollowService followService;
 
-    public FollowController(FollowService followService) {
+    public FollowController(IFollowService followService) {
         this.followService = followService;
     }
 

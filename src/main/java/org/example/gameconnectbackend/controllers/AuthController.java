@@ -4,8 +4,8 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.example.gameconnectbackend.dtos.authDtos.JwtResponse;
 import org.example.gameconnectbackend.dtos.authDtos.LoginRequest;
+import org.example.gameconnectbackend.interfaces.IJwtService;
 import org.example.gameconnectbackend.repositories.UserRepository;
-import org.example.gameconnectbackend.services.JwtService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
-    private final JwtService jwtService;
+    private final IJwtService jwtService;
     private final UserRepository userRepository;
 
     @PostMapping("login")

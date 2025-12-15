@@ -1,5 +1,6 @@
 package org.example.gameconnectbackend.services;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.example.gameconnectbackend.dtos.userDtos.ChangePasswordRequest;
 import org.example.gameconnectbackend.dtos.userDtos.RegisterUserRequest;
@@ -33,6 +34,7 @@ public class UserService implements IUserService {
     private final PasswordEncoder passwordEncoder;
     private final GameRepository gameRepository;
 
+    @Override
     public void checkUniqueCredentials(String username, String email) {
         Map<String, String> errors = new HashMap<>();
 
@@ -45,6 +47,7 @@ public class UserService implements IUserService {
         if (!errors.isEmpty()) throw new SameCredentialsException(errors);
     }
 
+    @Override
     public UserDto changePassword(Long id, ChangePasswordRequest request) {
         var user = userRepository.findById(id).orElse(null);
         if (user == null) throw new UserNotFoundException();
@@ -58,6 +61,7 @@ public class UserService implements IUserService {
         return userMapper.toDto(user);
     }
 
+    @Override
     public UserDto registerUser(RegisterUserRequest request) {
         var user = userMapper.toEntity(request);
         var role = roleRepository.findByName(roleUser);
@@ -90,6 +94,7 @@ public class UserService implements IUserService {
         return userMapper.toDto(user);
     }
 
+    @Override
     public UserDto findEmail(String email) {
         var user = userRepository.findByEmail(email).orElse(null);
         if (user == null) throw new UserNotFoundException();

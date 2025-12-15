@@ -1,5 +1,6 @@
 package org.example.gameconnectbackend.services;
 
+import jakarta.transaction.Transactional;
 import org.example.gameconnectbackend.dtos.commentDtos.CommentDTO;
 import org.example.gameconnectbackend.dtos.postDtos.LikeResponseDTO;
 import org.example.gameconnectbackend.dtos.postDtos.PostDTO;
@@ -46,16 +47,14 @@ public class PostService implements IPostService {
     }
 
 
+    @Transactional
     @Override
     public PostDTO createPost(PostDTO postDTO) {
         var post = postMapper.toPostModel(postDTO);
 
-
         User user = userRepository.findById(postDTO.getUser().getId())
                 .orElseThrow(() -> new UserNotFoundException(postDTO.getUser().getId().toString()));
         post.setUser(user);
-
-
 
         Set<Tag> resolvedTags = new HashSet<>();
 
@@ -146,6 +145,7 @@ public class PostService implements IPostService {
         return commentDTOs;
     }
 
+    @Transactional
     @Override
     public LikeResponseDTO toggleLike(Long postId, Long userId) {
 
@@ -175,8 +175,4 @@ public class PostService implements IPostService {
 
         return new LikeResponseDTO(liked, count);
     }
-
-
-
-
 }

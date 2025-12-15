@@ -6,7 +6,6 @@ import org.example.gameconnectbackend.dtos.profileDtos.UpdateBioDto;
 import org.example.gameconnectbackend.dtos.profileDtos.UpdateImgDto;
 import org.example.gameconnectbackend.dtos.profileDtos.UpdateUsernameDto;
 import org.example.gameconnectbackend.interfaces.IProfileService;
-import org.example.gameconnectbackend.services.ProfileService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +15,7 @@ public class ProfileController {
 
     private final IProfileService profileService;
 
-    public ProfileController(ProfileService profileService) {
+    public ProfileController(IProfileService profileService) {
         this.profileService = profileService;
     }
 

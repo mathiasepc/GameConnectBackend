@@ -1,6 +1,7 @@
 package org.example.gameconnectbackend.controllers;
 
 import org.example.gameconnectbackend.dtos.searchDtos.SearchResultDTO;
+import org.example.gameconnectbackend.interfaces.ISearchService;
 import org.example.gameconnectbackend.services.SearchService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +12,9 @@ import java.util.List;
 @RequestMapping("/search")
 public class SearchController {
 
-    private final SearchService searchService;
+    private final ISearchService searchService;
 
-    public SearchController(SearchService searchService) {
+    public SearchController(ISearchService searchService) {
         this.searchService = searchService;
     }
 
