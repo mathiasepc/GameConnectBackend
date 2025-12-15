@@ -1,6 +1,7 @@
 package org.example.gameconnectbackend.interfaces;
 
 import org.example.gameconnectbackend.dtos.commentDtos.CommentDTO;
+import org.example.gameconnectbackend.dtos.postDtos.LikeResponseDTO;
 import org.example.gameconnectbackend.dtos.postDtos.PostDTO;
 import org.example.gameconnectbackend.dtos.postDtos.TimelinePostDTO;
 import org.springframework.stereotype.Service;
@@ -15,4 +16,7 @@ public interface IPostService {
     CommentDTO createComment(CommentDTO request);
 
     List<CommentDTO> getComments(Long postId);
+
+
+    LikeResponseDTO toggleLike(Long postId, Long userId);
 }

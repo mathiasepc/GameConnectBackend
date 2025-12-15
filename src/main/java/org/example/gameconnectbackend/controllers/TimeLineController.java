@@ -1,11 +1,16 @@
 package org.example.gameconnectbackend.controllers;
 
 import org.example.gameconnectbackend.dtos.commentDtos.CommentDTO;
+import org.example.gameconnectbackend.dtos.postDtos.LikeResponseDTO;
 import org.example.gameconnectbackend.dtos.postDtos.PostDTO;
 import org.example.gameconnectbackend.dtos.postDtos.TimelinePostDTO;
 import org.example.gameconnectbackend.interfaces.IPostService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -45,4 +50,23 @@ public class TimeLineController {
         var response = postService.getComments(postId);
         return response;
     }
+
+    @PostMapping("/timeline/posts/{postId}/like")
+    public LikeResponseDTO toggleLike(@PathVariable Long postId) {
+
+        Authentication auth =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth == null || !auth.isAuthenticated()) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "You must be logged in"
+            );
+        }
+
+        Long userId = Long.parseLong(auth.getName());
+
+        return postService.toggleLike(postId, userId);
+    }
+
+
 }

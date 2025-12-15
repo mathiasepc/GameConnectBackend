@@ -1,6 +1,7 @@
 package org.example.gameconnectbackend.services;
 
 import org.example.gameconnectbackend.dtos.commentDtos.CommentDTO;
+import org.example.gameconnectbackend.dtos.postDtos.LikeResponseDTO;
 import org.example.gameconnectbackend.dtos.postDtos.PostDTO;
 import org.example.gameconnectbackend.dtos.postDtos.TimelinePostDTO;
 import org.example.gameconnectbackend.exceptions.PostNotFoundException;
@@ -12,7 +13,6 @@ import org.example.gameconnectbackend.models.*;
 import org.example.gameconnectbackend.repositories.*;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.*;
 
 @Service
@@ -26,11 +26,13 @@ public class PostService implements IPostService {
     private final FollowRepository followRepository;
     private final CommentRepository commentRepository;
     private final CommentMapper commentMapper;
+    private final LikeRepository likeRepository;
 
     public PostService(PostRepository postRepository, PostMapper postMapper,
                        TagRepository tagRepository, ProfileRepository profileRepository,
                        UserRepository userRepository, FollowRepository followRepository,
-                       CommentRepository commentRepository, CommentMapper commentMapper
+                       CommentRepository commentRepository, CommentMapper commentMapper,
+                       LikeRepository likeRepository
     ) {
         this.postRepository = postRepository;
         this.postMapper = postMapper;
@@ -40,6 +42,7 @@ public class PostService implements IPostService {
         this.followRepository = followRepository;
         this.commentRepository = commentRepository;
         this.commentMapper = commentMapper;
+        this.likeRepository = likeRepository;
     }
 
 
@@ -135,5 +138,38 @@ public class PostService implements IPostService {
         }
         return commentDTOs;
     }
+
+    @Override
+    public LikeResponseDTO toggleLike(Long postId, Long userId) {
+
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new PostNotFoundException("Post not found"));
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        Optional<Like> existing =
+                likeRepository.findByUserIdAndPostId(userId, postId);
+
+        boolean liked;
+
+        if (existing.isPresent()) {
+            likeRepository.delete(existing.get());
+            liked = false;
+        } else {
+            Like like = new Like();
+            like.setPost(post);
+            like.setUser(user);
+            likeRepository.save(like);
+            liked = true;
+        }
+
+        long count = likeRepository.countByPostId(postId);
+
+        return new LikeResponseDTO(liked, count);
+    }
+
+
+
 
 }

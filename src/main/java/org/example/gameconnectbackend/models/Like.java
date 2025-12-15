@@ -12,13 +12,20 @@ import java.time.Instant;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(
+        uniqueConstraints =  @UniqueConstraint(columnNames = {"user_id", "post_id"})
+)
 @Entity
 public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Instant createdAt;
-    private String userName;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id",  nullable = false)
+    private User user;
+
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
