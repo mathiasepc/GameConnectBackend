@@ -1,6 +1,7 @@
 package org.example.gameconnectbackend.config;
 
 import lombok.AllArgsConstructor;
+import org.example.gameconnectbackend.dtos.gameDto.GameDto;
 import org.example.gameconnectbackend.models.*;
 import org.example.gameconnectbackend.repositories.*;
 import org.springframework.boot.CommandLineRunner;
@@ -50,7 +51,6 @@ public class initData implements CommandLineRunner {
         var profile = new Profile();
         profile.setBio("When I am not giving out toys to all the good little girls and boys, I love to fuck shit up on ARC Raiders.");
         profile.setImg("https://images.pexels.com/photos/716658/pexels-photo-716658.jpeg");
-
         List<Post> posts = new ArrayList<>();
         var post1 = new Post();
         post1.setContent("Catch me live!");

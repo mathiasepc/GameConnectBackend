@@ -115,4 +115,14 @@ public class ProfileService implements IProfileService {
 
         return profileMapper.toDto(profile);
     }
+
+    @Override
+    public ProfileDTO updateUsername(Long currentUserId, String updatedUsername) {
+        Profile profile = profileRepository.findById(currentUserId).orElseThrow(() -> new IllegalArgumentException("Profile not found"));
+
+        profile.getUser().setUsername(updatedUsername);
+        profileRepository.save(profile);
+
+        return profileMapper.toDto(profile);
+    }
 }
