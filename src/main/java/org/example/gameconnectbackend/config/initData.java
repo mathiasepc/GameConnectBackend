@@ -22,6 +22,7 @@ public class initData implements CommandLineRunner {
     private final TagRepository tagRepository;
     private final PasswordEncoder passwordEncoder;
     private final CommentRepository commentRepository;
+    private final LikeRepository likeRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -282,6 +283,60 @@ public class initData implements CommandLineRunner {
         commentRepository.saveAll(comments);
 
 
+
+
+        // --- Like Initialization ---
+        List<Like> likes = new ArrayList<>();
+
+// Santa likes his own hype
+        likes.add(new Like(
+                null,
+                Instant.now().minus(20, ChronoUnit.MINUTES),
+                testUser,   // Santa Claus
+                post3       // "WHO WANTS TO SHOOT SOME ROBOTS????"
+        ));
+
+// Miss Santa likes Santa’s robot post
+        likes.add(new Like(
+                null,
+                Instant.now().minus(18, ChronoUnit.MINUTES),
+                testUser12, // Miss Santa
+                post3
+        ));
+
+// Grinch likes Santa’s robot post (ironically)
+        likes.add(new Like(
+                null,
+                Instant.now().minus(15, ChronoUnit.MINUTES),
+                testUser1,  // The Grinch
+                post3
+        ));
+
+// Miss Santa likes "Last arc marathon"
+        likes.add(new Like(
+                null,
+                Instant.now().minus(10, ChronoUnit.MINUTES),
+                testUser12,
+                post4
+        ));
+
+// Santa likes Grinch’s mod post
+        likes.add(new Like(
+                null,
+                Instant.now().minus(30, ChronoUnit.MINUTES),
+                testUser,
+                post5
+        ));
+
+// Grinch2 likes Grinch’s post (admin judgment)
+        likes.add(new Like(
+                null,
+                Instant.now().minus(28, ChronoUnit.MINUTES),
+                testUser2, // The Grinch2 (ADMIN)
+                post5
+        ));
+
+        likeRepository.saveAll(likes);
 
     }
 }

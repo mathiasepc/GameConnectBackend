@@ -13,6 +13,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(
+        name = "likes",
         uniqueConstraints =  @UniqueConstraint(columnNames = {"user_id", "post_id"})
 )
 @Entity

@@ -78,7 +78,7 @@ public class PostService implements IPostService {
 
     @Override
     public List<TimelinePostDTO> getTimelinePosts(Long userId) {
-        Profile userProfile = profileRepository.findById(userId)
+        Profile userProfile = profileRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         List<Profile> following = followRepository.findAllByFollower(userProfile)
@@ -100,6 +100,12 @@ public class PostService implements IPostService {
                     TimelinePostDTO dto = new TimelinePostDTO(post);
                     dto.setCommentCount(
                             commentRepository.countByPostId(post.getId())
+                    );
+                    dto.setLikesCount(
+                            likeRepository.countByPostId(post.getId())
+                    );
+                    dto.setLikedByMe(
+                            likeRepository.existsByUserIdAndPostId(userId, post.getId())
                     );
                     return dto;
                 })

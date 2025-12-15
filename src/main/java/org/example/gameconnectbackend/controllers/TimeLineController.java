@@ -51,7 +51,7 @@ public class TimeLineController {
         return response;
     }
 
-    @PostMapping("/timeline/posts/{postId}/like")
+    @PostMapping("/posts/{postId}/like")
     public LikeResponseDTO toggleLike(@PathVariable Long postId) {
 
         Authentication auth =
