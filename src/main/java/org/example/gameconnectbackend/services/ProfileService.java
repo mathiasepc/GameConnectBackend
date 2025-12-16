@@ -11,10 +11,7 @@ import org.example.gameconnectbackend.mappers.ProfileMapper;
 import org.example.gameconnectbackend.models.Game;
 import org.example.gameconnectbackend.models.Profile;
 import org.example.gameconnectbackend.models.User;
-import org.example.gameconnectbackend.repositories.FollowRepository;
-import org.example.gameconnectbackend.repositories.GameRepository;
-import org.example.gameconnectbackend.repositories.ProfileRepository;
-import org.example.gameconnectbackend.repositories.UserRepository;
+import org.example.gameconnectbackend.repositories.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,8 +26,14 @@ public class ProfileService implements IProfileService {
     private final GameRepository gameRepository;
     private final ProfileRepository profileRepository;
     private final ProfileMapper profileMapper;
+    private final CommentRepository commentRepository;
+    private final LikeRepository likeRepository;
 
-    public ProfileService(UserRepository userRepository, PostMapper postMapper, FollowRepository followRepository, GameMapper gameMapper, GameRepository gameRepository, ProfileRepository profileRepository, ProfileMapper profileMapper) {
+    public ProfileService(UserRepository userRepository, PostMapper postMapper,
+                          FollowRepository followRepository, GameMapper gameMapper,
+                          GameRepository gameRepository, ProfileRepository profileRepository,
+                          ProfileMapper profileMapper,  CommentRepository commentRepository,
+                          LikeRepository likeRepository) {
         this.userRepository = userRepository;
         this.postMapper = postMapper;
         this.followRepository = followRepository;
@@ -38,6 +41,8 @@ public class ProfileService implements IProfileService {
         this.gameRepository = gameRepository;
         this.profileRepository = profileRepository;
         this.profileMapper = profileMapper;
+        this.commentRepository = commentRepository;
+        this.likeRepository = likeRepository;
     }
 
     @Override
@@ -49,7 +54,19 @@ public class ProfileService implements IProfileService {
 
         List<TimelinePostDTO> posts = user.getPosts()
                 .stream()
-                .map(postMapper::toPostSummaryDTO)
+                .map(post -> {
+                    TimelinePostDTO dto = new TimelinePostDTO(post);
+                    dto.setCommentCount(
+                            commentRepository.countByPostId(post.getId())
+                    );
+                    dto.setLikesCount(
+                            likeRepository.countByPostId(post.getId())
+                    );
+                    dto.setLikedByMe(
+                            likeRepository.existsByUserIdAndPostId(currentUserId, post.getId())
+                    );
+                    return dto;
+                })
                 .toList();
 
         List<GameDto> games = profile.getFavouriteGames()
