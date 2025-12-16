@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -22,13 +21,4 @@ public class Game {
     private Set<Profile> profiles;
 
     private String img;
-
-    @ManyToMany
-    @JoinTable(
-            name = "game_categories",
-            inverseJoinColumns = @JoinColumn(name = "category_id"),
-            joinColumns = @JoinColumn(name = "game_id")
-
-    )
-    private List<GameCategory> gameCategories;
 }
