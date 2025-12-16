@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 
 
 // we uses RoleMapper because we need to map the role from the registerUserRequest to the user
-@Mapper(componentModel = "spring", uses = RoleMapper.class)
+@Mapper(componentModel = "spring")
 public interface UserMapper {
     User toUserModel(AdminUserDto adminUserDto);
     // @Mapping = we map the password from the registerUserRequest to the user
@@ -19,7 +19,6 @@ public interface UserMapper {
 
     AdminUserDto toAdminUserDto(User user);
     // @Mapping = we map the role from the user to the userDto
-    @Mapping(target = "role", source = "role")
     UserDto toDto(User user);
 
 }

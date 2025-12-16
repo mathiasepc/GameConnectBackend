@@ -2,7 +2,9 @@ package org.example.gameconnectbackend.services;
 
 
 import org.example.gameconnectbackend.dtos.userDTOs.AdminUserDto;
+import org.example.gameconnectbackend.exceptions.UserNotFoundException;
 import org.example.gameconnectbackend.mappers.UserMapper;
+import org.example.gameconnectbackend.models.Profile;
 import org.example.gameconnectbackend.models.User;
 import org.example.gameconnectbackend.repositories.UserRepository;
 import org.springframework.data.domain.Page;
@@ -45,4 +47,26 @@ public class AdminService {
         }
         return false;
     }
+
+    public AdminUserDto adminUpdateUser(AdminUserDto dto){
+
+        User user = userRepository.findById(dto.getId()).orElse(null);
+        if (user == null) throw new UserNotFoundException();
+
+        user.setUsername(dto.getUsername());
+        user.setEmail(dto.getEmail());
+        user.setPassword(user.getPassword());
+        user.getRole().setName(dto.getRole().getName());
+
+        Profile profile = user.getProfile();
+        profile.setImg(dto.getImg());
+        profile.setBio(dto.getBio());
+
+        userRepository.save(user);
+
+        AdminUserDto returnDto = userMapper.toAdminUserDto(user);
+
+        return returnDto;
+    }
+
 }

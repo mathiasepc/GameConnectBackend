@@ -3,6 +3,8 @@ package org.example.gameconnectbackend.controllers;
 
 import org.example.gameconnectbackend.dtos.userDTOs.AdminUserDto;
 import org.example.gameconnectbackend.services.AdminService;
+import org.example.gameconnectbackend.services.UserService;
+import org.example.gameconnectbackend.dtos.userDTOs.AdminUserDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +16,11 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
+    private final UserService userService;
 
-    public AdminController(AdminService adminService) {
+    public AdminController(AdminService adminService, UserService userService) {
         this.adminService = adminService;
+        this.userService = userService;
     }
 
     @CrossOrigin
@@ -33,4 +37,12 @@ public class AdminController {
        var response = adminService.deleteUser(id);
        return ResponseEntity.ok(response);
     }
+
+    @CrossOrigin
+    @PutMapping("/users/{id}")
+    public ResponseEntity<AdminUserDto> updateUser(@PathVariable long id, @RequestBody AdminUserDto adminUserDto) {
+        AdminUserDto updatedDto = adminService.adminUpdateUser(adminUserDto);
+        return ResponseEntity.ok(adminUserDto);
+    }
+
 }

@@ -1,6 +1,7 @@
 package org.example.gameconnectbackend.services;
 
 import lombok.AllArgsConstructor;
+import org.example.gameconnectbackend.dtos.userDTOs.AdminUserDto;
 import org.example.gameconnectbackend.dtos.userDtos.ChangePasswordRequest;
 import org.example.gameconnectbackend.dtos.userDtos.RegisterUserRequest;
 import org.example.gameconnectbackend.dtos.userDtos.UserDto;
@@ -11,6 +12,7 @@ import org.example.gameconnectbackend.interfaces.IUserService;
 import org.example.gameconnectbackend.mappers.UserMapper;
 import org.example.gameconnectbackend.models.Game;
 import org.example.gameconnectbackend.models.Profile;
+import org.example.gameconnectbackend.models.User;
 import org.example.gameconnectbackend.repositories.GameRepository;
 import org.example.gameconnectbackend.repositories.RoleRepository;
 import org.example.gameconnectbackend.repositories.UserRepository;
@@ -89,6 +91,7 @@ public class UserService implements IUserService {
 
         return userMapper.toDto(user);
     }
+
 
     public UserDto findEmail(String email) {
         var user = userRepository.findByEmail(email).orElse(null);
