@@ -45,4 +45,11 @@ public class AdminController {
         return ResponseEntity.ok(adminUserDto);
     }
 
+    @CrossOrigin
+    @GetMapping("/users/{id}")
+    public ResponseEntity<AdminUserDto> getUser(@PathVariable long id) {
+        AdminUserDto userDto = adminService.getSingleUser(id);
+        return ResponseEntity.ok(userDto);
+    }
+
 }

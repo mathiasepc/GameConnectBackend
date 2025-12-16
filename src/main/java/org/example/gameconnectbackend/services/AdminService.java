@@ -69,4 +69,10 @@ public class AdminService {
         return returnDto;
     }
 
+    public AdminUserDto getSingleUser(Long userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        AdminUserDto returnDto = userMapper.toAdminUserDto(user);
+        return returnDto;
+    }
+
 }
