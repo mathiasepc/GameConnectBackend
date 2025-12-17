@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Optional;
 
-@CrossOrigin
+
 public interface ProfileRepository extends JpaRepository<Profile,Long> {
     Optional<Profile> findByUserId(Long userId);
 

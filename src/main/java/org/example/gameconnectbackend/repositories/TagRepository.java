@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Optional;
 
-@CrossOrigin
+
 public interface TagRepository extends JpaRepository<Tag,Long> {
     Optional<Tag> findByName(String name);
 }
