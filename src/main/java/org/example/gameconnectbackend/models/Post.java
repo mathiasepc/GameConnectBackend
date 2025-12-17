@@ -33,9 +33,6 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private Set<Like> likes;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<Report> reports;
-
     @ManyToMany
     @JoinTable(
             name = "post_tags",

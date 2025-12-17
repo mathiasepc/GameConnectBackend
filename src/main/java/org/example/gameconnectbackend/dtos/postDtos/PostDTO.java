@@ -27,7 +27,6 @@ public class PostDTO {
     private User user;
     private Set<Comment> comments;
     private Set<Like> likes;
-    private List<Report> reports;
     private Set<Tag> tags;
     private Media media;
 }
