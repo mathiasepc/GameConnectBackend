@@ -1,6 +1,5 @@
 package org.example.gameconnectbackend.services;
 
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.example.gameconnectbackend.dtos.userDtos.ChangePasswordRequest;
 import org.example.gameconnectbackend.dtos.userDtos.RegisterUserRequest;
